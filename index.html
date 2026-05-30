@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market IQ — UX Case Study</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { inter: ['Inter', 'sans-serif'] },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        body { background: #020617; color: #fff; }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+        .sidebar { 
+            width: 280px; min-width: 280px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(24px);
+            border-right: 1px solid rgba(255,255,255,0.08);
+            height: 100vh; position: fixed;
+            top: 0; left: 0; z-index: 50;
+            transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex; flex-direction: column;
+        }
+        .sidebar.collapsed { transform: translateX(-280px); }
+
+        .main-content {
+            margin-left: 280px;
+            transition: margin-left 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .main-content.expanded { margin-left: 0; }
+
+        .nav-item {
+            display: flex; align-items: center; gap: 12px;
+            padding: 10px 20px; margin: 2px 12px;
+            border-radius: 10px; cursor: pointer;
+            transition: all 0.2s ease;
+            color: #94a3b8; font-size: 13px; font-weight: 400;
+            position: relative;
+        }
+        .nav-item:hover { background: rgba(255,255,255,0.05); color: #e2e8f0; }
+        .nav-item.active {
+            background: rgba(99, 102, 241, 0.15);
+            color: #818cf8;
+        }
+        .nav-item.active::before {
+            content: '';
+            position: absolute; left: -12px; top: 50%; transform: translateY(-50%);
+            width: 3px; height: 24px;
+            background: #6366f1; border-radius: 0 3px 3px 0;
+        }
+        .nav-item .num {
+            width: 26px; height: 26px; border-radius: 8px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 11px; font-weight: 600;
+            background: rgba(255,255,255,0.05);
+            transition: all 0.2s ease; flex-shrink: 0;
+        }
+        .nav-item.active .num {
+            background: rgba(99, 102, 241, 0.25);
+            color: #a5b4fc;
+        }
+
+        .case-section {
+            min-height: 100vh;
+            padding: 60px 40px 80px;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: flex-start;
+            position: relative;
+        }
+
+        .section-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 6px 16px; border-radius: 50px;
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: #a5b4fc; font-size: 12px; font-weight: 500;
+            letter-spacing: 0.05em; text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 36px; font-weight: 600; line-height: 1.15;
+            background: linear-gradient(to bottom right, #d0d7fb, #716afb);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; margin-bottom: 12px; text-align: center;
+        }
+        .section-desc {
+            color: #94a3b8; font-size: 15px; line-height: 1.7;
+            max-width: 640px; text-align: center; margin-bottom: 40px;
+        }
+
+        .image-frame {
+            width: 100%; max-width: 1200px;
+            border-radius: 16px; overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(15, 23, 42, 0.6);
+            box-shadow: 0 25px 60px -12px rgba(0,0,0,0.5), 0 0 40px -10px rgba(99,102,241,0.08);
+            position: relative;
+        }
+        .image-frame img {
+            width: 100%; height: auto; display: block;
+        }
+        .image-frame::before {
+            content: '';
+            position: absolute; inset: 0; border-radius: 16px;
+            background: linear-gradient(135deg, rgba(99,102,241,0.05), transparent 50%);
+            pointer-events: none; z-index: 1;
+        }
+
+        /* Image error fallback */
+        .img-fallback {
+            display: none;
+            flex-direction: column; align-items: center; justify-content: center;
+            padding: 60px 40px; text-align: center;
+            color: #475569; gap: 12px; min-height: 300px;
+        }
+        .img-fallback.visible { display: flex; }
+        .img-fallback-icon {
+            width: 56px; height: 56px; border-radius: 16px;
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06);
+            display: flex; align-items: center; justify-content: center; color: #334155;
+        }
+
+        .hero-glow {
+            position: absolute; top: -100px; left: 50%; transform: translateX(-50%);
+            width: 700px; height: 500px;
+            background: radial-gradient(circle at 50% 0%, rgba(99,102,241,0.18) 0%, rgba(15,23,42,0) 70%);
+            pointer-events: none;
+        }
+
+        .result-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px; padding: 28px;
+            transition: all 0.4s ease;
+        }
+        .result-card:hover {
+            background: rgba(255,255,255,0.06);
+            border-color: rgba(99,102,241,0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px -10px rgba(0,0,0,0.3);
+        }
+
+        .progress-bar {
+            height: 6px; border-radius: 3px;
+            background: rgba(255,255,255,0.06); overflow: hidden;
+        }
+        .progress-fill {
+            height: 100%; border-radius: 3px;
+            background: linear-gradient(to right, #6366f1, #818cf8);
+            transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
+        }
+
+        .mobile-toggle {
+            display: none; position: fixed; top: 16px; left: 16px; z-index: 60;
+            width: 44px; height: 44px; border-radius: 12px;
+            background: rgba(15,23,42,0.9); backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.1);
+            align-items: center; justify-content: center; cursor: pointer;
+            color: #94a3b8; transition: all 0.2s;
+        }
+        .mobile-toggle:hover { color: #fff; background: rgba(30,41,59,0.95); }
+
+        .sidebar-overlay {
+            display: none; position: fixed; inset: 0; z-index: 40;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(2px);
+        }
+
+        .scroll-indicator {
+            position: fixed; top: 0; left: 280px; right: 0; height: 2px;
+            z-index: 45; background: rgba(255,255,255,0.03);
+        }
+        .scroll-indicator .fill {
+            height: 100%; width: 0%;
+            background: linear-gradient(to right, #6366f1, #818cf8, #6366f1);
+            background-size: 200% 100%;
+            animation: shimmer 3s ease infinite;
+            transition: width 0.1s linear;
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .section-divider {
+            width: 100%; max-width: 1200px; height: 1px;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.08), transparent);
+        }
+
+        .fade-section {
+            opacity: 0; transform: translateY(30px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .fade-section.visible { opacity: 1; transform: translateY(0); }
+
+        .lightbox {
+            display: none; position: fixed; inset: 0; z-index: 100;
+            background: rgba(0,0,0,0.92); backdrop-filter: blur(8px);
+            align-items: center; justify-content: center;
+            cursor: zoom-out; padding: 40px;
+        }
+        .lightbox.active { display: flex; }
+        .lightbox img {
+            max-width: 95vw; max-height: 92vh;
+            border-radius: 12px; box-shadow: 0 25px 80px rgba(0,0,0,0.5);
+        }
+        .lightbox-close {
+            position: absolute; top: 20px; right: 20px;
+            width: 40px; height: 40px; border-radius: 50%;
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; cursor: pointer; transition: all 0.2s;
+        }
+        .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+
+        /* Testing page specific */
+        .sus-bar-track {
+            height: 28px; border-radius: 8px;
+            background: rgba(255,255,255,0.04);
+            overflow: hidden; position: relative;
+        }
+        .sus-bar-fill {
+            height: 100%; border-radius: 8px;
+            display: flex; align-items: center; justify-content: flex-end;
+            padding-right: 10px; font-size: 11px; font-weight: 600;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            width: 0%;
+        }
+        .sus-excellent { background: linear-gradient(to right, #059669, #10b981); color: #fff; }
+        .sus-good { background: linear-gradient(to right, #2563eb, #3b82f6); color: #fff; }
+        .sus-overall {
+            background: linear-gradient(to right, #6366f1, #818cf8, #a855f7);
+            color: #fff; font-size: 13px; font-weight: 700;
+        }
+
+        .participant-dot {
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 10px; font-weight: 600;
+            border: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        .participant-dot:hover {
+            transform: scale(1.15);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .finding-card {
+            padding: 20px; border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.06);
+            transition: all 0.3s;
+        }
+        .finding-card:hover {
+            border-color: rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.02);
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar { transform: translateX(-280px); }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0 !important; }
+            .mobile-toggle { display: flex; }
+            .sidebar-overlay.active { display: block; }
+            .scroll-indicator { left: 0; }
+            .case-section { padding: 50px 20px 60px; }
+            .section-title { font-size: 28px; }
+        }
+        @media (max-width: 640px) {
+            .case-section { padding: 40px 16px 50px; }
+            .section-title { font-size: 24px; }
+            .section-desc { font-size: 14px; }
+            .result-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="scroll-indicator"><div class="fill" id="scrollFill"></div></div>
+
+<button class="mobile-toggle" id="mobileToggle" aria-label="Toggle navigation">
+    <i data-lucide="menu" style="width:20px;height:20px;"></i>
+</button>
+
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar">
+    <div style="padding: 24px 20px 16px; border-bottom: 1px solid rgba(255,255,255,0.06);">
+        <div style="display:flex; align-items:center; gap:12px; margin-bottom:16px;">
+            <div style="width:38px;height:38px;border-radius:10px;background:linear-gradient(135deg,#6366f1,#818cf8);display:flex;align-items:center;justify-content:center;">
+                <i data-lucide="layout-dashboard" style="width:20px;height:20px;color:#fff;"></i>
+            </div>
+            <div>
+                <div style="font-size:15px;font-weight:600;color:#fff;letter-spacing:-0.02em;">Market IQ</div>
+                <div style="font-size:11px;color:#64748b;font-weight:400;">UX Case Study</div>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.15);">
+            <div style="width:6px;height:6px;border-radius:50%;background:#10b981;box-shadow:0 0 8px rgba(16,185,129,0.6);"></div>
+            <span style="font-size:11px;color:#34d399;font-weight:500;">Completed Project</span>
+        </div>
+    </div>
+
+    <nav style="flex:1;overflow-y:auto;padding:12px 0;" id="sideNav">
+        <div style="padding:0 20px 8px;font-size:10px;font-weight:600;color:#475569;letter-spacing:0.08em;text-transform:uppercase;">Process</div>
+        <div class="nav-item active" data-target="overview" onclick="scrollToSection('overview')">
+            <span class="num">01</span><span>Overview</span>
+        </div>
+        <div class="nav-item" data-target="problem" onclick="scrollToSection('problem')">
+            <span class="num">02</span><span>Problem</span>
+        </div>
+        <div class="nav-item" data-target="research" onclick="scrollToSection('research')">
+            <span class="num">03</span><span>Research</span>
+        </div>
+        <div class="nav-item" data-target="personas" onclick="scrollToSection('personas')">
+            <span class="num">04</span><span>User Personas</span>
+        </div>
+        <div class="nav-item" data-target="userflow" onclick="scrollToSection('userflow')">
+            <span class="num">05</span><span>User Flow</span>
+        </div>
+        <div class="nav-item" data-target="wireframes" onclick="scrollToSection('wireframes')">
+            <span class="num">06</span><span>Wireframes</span>
+        </div>
+        <div style="padding:12px 20px 8px;font-size:10px;font-weight:600;color:#475569;letter-spacing:0.08em;text-transform:uppercase;">Design</div>
+        <div class="nav-item" data-target="designsystem" onclick="scrollToSection('designsystem')">
+            <span class="num">07</span><span>Design System</span>
+        </div>
+        <div class="nav-item" data-target="fullscreens" onclick="scrollToSection('fullscreens')">
+            <span class="num">08</span><span>Full Screens</span>
+        </div>
+        <div class="nav-item" data-target="prototype" onclick="scrollToSection('prototype')">
+            <span class="num">09</span><span>Prototype</span>
+        </div>
+        <div style="padding:12px 20px 8px;font-size:10px;font-weight:600;color:#475569;letter-spacing:0.08em;text-transform:uppercase;">Validation</div>
+        <div class="nav-item" data-target="testing" onclick="scrollToSection('testing')">
+            <span class="num">10</span><span>Testing</span>
+        </div>
+        <div class="nav-item" data-target="results" onclick="scrollToSection('results')">
+            <span class="num">11</span><span>Results</span>
+        </div>
+    </nav>
+
+    <div style="padding:16px 20px;border-top:1px solid rgba(255,255,255,0.06);">
+        <div style="display:flex;align-items:center;gap:10px;">
+            <div style="width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,#6366f1,#a855f7);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:600;">SK</div>
+            <div>
+                <div style="font-size:12px;font-weight:500;color:#e2e8f0;">Subrahmanyam Kokkiripati</div>
+                <div style="font-size:10px;color:#64748b;">Senior UX Designer</div>
+            </div>
+        </div>
+    </div>
+</aside>
+
+<main class="main-content" id="mainContent">
+
+    <!-- ========== 01 OVERVIEW ========== -->
+    <section class="case-section fade-section" id="overview">
+        <div class="hero-glow"></div>
+        <div class="section-badge"><i data-lucide="eye" style="width:13px;height:13px;"></i> Section 01</div>
+        <h1 class="section-title">Overview</h1>
+        <p class="section-desc">Market IQ is a comprehensive real estate intelligence platform designed to unify property data, streamline lead management, and empower real estate professionals with actionable insights — all in one dashboard.</p>
+        <div class="image-frame" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://z-cdn-media.chatglm.cn/files/2e293bae-a7a3-4f4d-a3c9-01a76f2eee68.png?auth_key=1880113053-07323ba4e9254dc1bf146d815e95cd54-0-32888cf17b123b6ef8cc711892fd851a" alt="Overview Dashboard" loading="eager" onerror="this.style.display='none';this.nextElementSibling.classList.add('visible');">
+            <div class="img-fallback">
+                <div class="img-fallback-icon"><i data-lucide="image-off" style="width:24px;height:24px;"></i></div>
+                <span style="font-size:13px;">Image could not be loaded</span>
+                <span style="font-size:11px;color:#334155;">1_overview.png</span>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:16px;color:#475569;font-size:12px;cursor:pointer;" onclick="tryOpenLightbox('#overview')">
+            <i data-lucide="maximize-2" style="width:13px;height:13px;"></i> Click image to expand
+        </div>
+    </section>
+
+    <div class="section-divider" style="margin:0 auto;"></div>
+
+    <!-- ========== 02 PROBLEM ========== -->
+    <section class="case-section fade-section" id="problem">
+        <div class="section-badge"><i data-lucide="alert-triangle" style="width:13px;height:13px;"></i> Section 02</div>
+        <h1 class="section-title">Problem</h1>
+        <p class="section-desc">Through extensive research, we identified six key problem categories affecting productivity and user experience in the real estate ecosystem — from fragmented information to complex property search workflows.</p>
+        <div class="image-frame" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://z-cdn-media.chatglm.cn/files/bb9e6ad3-015f-43f7-8d60-64816771cf2e.png?auth_key=1880113053-0c9eeaaeafcf4c7a9aa47bc7f9a5c3d8-0-1798b483e4f9ed202f66301b1b55ee1c" alt="Problem Analysis" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('visible');">
+            <div class="img-fallback">
+                <div class="img-fallback-icon"><i data-lucide="image-off" style="width:24px;height:24px;"></i></div>
+                <span style="font-size:13px;">Image could not be loaded</span>
+                <span style="font-size:11px;color:#334155;">2_problem.png</span>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:16px;color:#475569;font-size:12px;cursor:pointer;" onclick="tryOpenLightbox('#problem')">
+            <i data-lucide="maximize-2" style="width:13px;height:13px;"></i> Click image to expand
+        </div>
+    </section>
+
+    <div class="section-divider" style="margin:0 auto;"></div>
+
+    <!-- ========== 03 RESEARCH ========== -->
+    <section class="case-section fade-section" id="research">
+        <div class="section-badge"><i data-lucide="search" style="width:13px;height:13px;"></i> Section 03</div>
+        <h1 class="section-title">Research</h1>
+        <p class="section-desc">A mixed-methods research approach combining user interviews, surveys, competitive analysis, and analytics review to uncover deep insights into user behaviors, pain points, and unmet needs.</p>
+        <div class="image-frame" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://z-cdn-media.chatglm.cn/files/1144c416-9481-41cd-aa82-6a196697e6dd.png?auth_key=1880113053-2330c1c9e4c1455a81448a97b0e7668e-0-2b59bb1cae3f02fef9aed9d9c9fe6b5c" alt="Research Findings" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('visible');">
+            <div class="img-fallback">
+                <div class="img-fallback-icon"><i data-lucide="image-off" style="width:24px;height:24px;"></i></div>
+                <span style="font-size:13px;">Image could not be loaded</span>
+                <span style="font-size:11px;color:#334155;">3_research.png</span>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:16px;color:#475569;font-size:12px;cursor:pointer;" onclick="tryOpenLightbox('#research')">
+            <i data-lucide="maximize-2" style="width:13px;height:13px;"></i> Click image to expand
+        </div>
+    </section>
+
+    <div class="section-divider" style="margin:0 auto;"></div>
+
+    <!-- ========== 04 USER PERSONAS ========== -->
+    <section class="case-section fade-section" id="personas">
+        <div class="section-badge"><i data-lucide="users" style="width:13px;height:13px;"></i> Section 04</div>
+        <h1 class="section-title">User Personas</h1>
+        <p class="section-desc">Three distinct user personas representing the core audience — a real estate agent managing leads, a property investor seeking ROI, and a first-time home buyer navigating the market.</p>
+        <div class="image-frame" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://z-cdn-media.chatglm.cn/files/77c64772-d5fa-49f8-b40f-199e65cc6fa0.png?auth_key=1880113053-a972cfbcd79b4337a689e366f0a70d6e-0-209fb2aef7357040acde016739183bfb" alt="User Personas" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('visible');">
+            <div class="img-fallback">
+                <div class="img-fallback-icon"><i data-lucide="image-off" style="width:24px;height:24px;"></i></div>
+                <span style="font-size:13px;">Image could not be loaded</span>
+                <span style="font-size:11px;color:#334155;">4_userpersonas.png</span>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:16px;color:#475569;font-size:12px;cursor:pointer;" onclick="tryOpenLightbox('#personas')">
+            <i data-lucide="maximize-2" style="width:13px;height:13px;"></i> Click image to expand
+        </div>
+    </section>
+
+    <div class="section-divider" style="margin:0 auto;"></div>
+
+    <!-- ========== 05 USER FLOW ========== -->
+    <section class="case-section fade-section" id="userflow">
+        <div class="section-badge"><i data-lucide="git-branch" style="width:13px;height:13px;"></i> Section 05</div>
+        <h1 class="section-title">User Flow</h1>
+        <p class="section-desc">Detailed user flow diagrams mapping two critical journeys — Property Search Flow for buyers and Lead Management Flow for agents — ensuring every step is intuitive and goal-oriented.</p>
+        <div class="image-frame" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://z-cdn-media.chatglm.cn/files/edbdb243-48f9-431b-92a0-414f34875769.png?auth_key=1880113053-604f101958bb47b4958dd4739b2c7fc3-0-fa3427afb9dfc454a990b621f0bddeb3" alt="User Flow" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('visible');">
+            <div class="img-fallback">
+                <div class="img-fallback-icon"><i data-lucide="image-off" style="width:24px;height:24px;"></i></div>
+                <span style="font-size:13px;">Image could not be loaded</span>
+                <span style="font-size:11px;color:#334155;">5_userflow.png</span>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:16px;color:#475569;font-size:12px;cursor:pointer;" onclick="tryOpenLightbox('#userflow')">
+            <i data-lucide="maximize-2" style="width:13px;height:13px;"></i> Click image to expand
+        </div>
+    </section>
+
+    <div class="section-divider" style="margin:0 auto;"></div>
+
+    <!-- ========== 06 WIREFRAMES ========== -->
+    <section class="case-section fade-section" id="wireframes">
+        <div class="section-badge"><i data-lucide="frame" style="width:13px;height:13px;"></i> Section 06</div>
+        <h1 class="section-title">Wireframes</h1>
+        <p class="section-desc">Low-fidelity wireframes for five core screens — Dashboard, Property Listing, Property Details, Lead Pipeline, and Schedule Visit — focusing on structure, layout, and information hierarchy.</p>
+        <div class="image-frame" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://z-cdn-media.chatglm.cn/files/88a061f6-1a9d-4e36-a114-72d1d8562ba7.png?auth_key=1880113053-25feaa64b36c450c8cfa2bd3e9bfd674-0-185a42a757aa6839289e2e86647d7f0b" alt="Wireframes" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('visible');">
+            <div class="img-fallback">
+                <div class="img-fallback-icon"><i data-lucide="image-off" style="width:24px;height:24px;"></i></div>
+                <span style="font-size:13px;">Image could not be loaded</span>
+                <span style="font-size:11px;color:#334155;">6_wireframes.png</span>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:16px;color:#475569;font-size:12px;cursor:pointer;" onclick="tryOpenLightbox('#wireframes')">
+            <i data-lucide="maximize-2" style="width:13px;height:13px;"></i> Click image to expand
+        </div>
+    </section>
+
+    <div class="section-divider" style="margin:0 auto;"></div>
+
+    <!-- ========== 07 DESIGN SYSTEM ========== -->
+    <section class="case-section fade-section" id="designsystem">
+        <div class="section-badge"><i data-lucide="palette" style="width:13px;height:13px;"></i> Section 07</div>
+        <h1 class="section-title">Design System</h1>
+        <p class="section-desc">A comprehensive design system defining UI components, visual elements, color palette, typography scale, and spacing rules to ensure consistency and scalability across the entire platform.</p>
+        <div class="image-frame" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://z-cdn-media.chatglm.cn/files/54474eb5-5a89-405f-9c5b-248a2ae141e5.png?auth_key=1880113053-beeb7f3a4beb44e79ee497403002ac06-0-15dab12ccc93be8f18bcca395761052f" alt="Design System" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('visible');">
+            <div class="img-fallback">
+                <div class="img-fallback-icon"><i data-lucide="image-off" style="width:24px;height:24px;"></i></div>
+                <span style="font-size:13px;">Image could not be loaded</span>
+                <span style="font-size:11px;color:#334155;">7_designsystem.png</span>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:16px;color:#475569;font-size:12px;cursor:pointer;" onclick="tryOpenLightbox('#designsystem')">
+            <i data-lucide="maximize-2" style="width:13px;height:13px;"></i> Click image to expand
+        </div>
+    </section>
+
+    <div class="section-divider" style="margin:0 auto;"></div>
+
+    <!-- ========== 08 FULL SCREENS ========== -->
+    <section class="case-section fade-section" id="fullscreens">
+        <div class="section-badge"><i data-lucide="monitor" style="width:13px;height:13px;"></i> Section 08</div>
+        <h1 class="section-title">Full Screens</h1>
+        <p class="section-desc">High-fidelity screen designs covering the complete platform experience — from the main dashboard and property listings to lead pipeline, messaging, insights, and user profile.</p>
+        <div class="image-frame" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://z-cdn-media.chatglm.cn/files/c5c81580-4f18-4074-8e8e-b6b5cd896327.png?auth_key=1880113053-b9cfa95b457a47a99f182ebed40f0b33-0-ef5b0716a449ee48febde2f4cb01312c" alt="Full Screens" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('visible');">
+            <div class="img-fallback">
+                <div class="img-fallback-icon"><i data-lucide="image-off" style="width:24px;height:24px;"></i></div>
+                <span style="font-size:13px;">Image could not be loaded</span>
+                <span style="font-size:11px;color:#334155;">8_finalScreens.png</span>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:16px;color:#475569;font-size:12px;cursor:pointer;" onclick="tryOpenLightbox('#fullscreens')">
+            <i data-lucide="maximize-2" style="width:13px;height:13px;"></i> Click image to expand
+        </div>
+    </section>
+
+    <div class="section-divider" style="margin:0 auto;"></div>
+
+    <!-- ========== 09 PROTOTYPE ========== -->
+    <section class="case-section fade-section" id="prototype">
+        <div class="section-badge"><i data-lucide="smartphone" style="width:13px;height:13px;"></i> Section 09</div>
+        <h1 class="section-title">Prototype</h1>
+        <p class="section-desc">An interactive Figma prototype demonstrating responsive design across desktop, tablet, and mobile — with clickable flows, real interactions, and nine key user journey steps from dashboard to completion.</p>
+        <div class="image-frame" onclick="openLightbox(this.querySelector('img').src)">
+            <img src="https://z-cdn-media.chatglm.cn/files/35386a0b-31e1-4693-80fa-c5b7a2b67e3a.png?auth_key=1880113053-95ced5fe47214923b9ae875d179567ee-0-6110a0fe8bb8e992665a9617a83adcea" alt="Prototype" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.classList.add('visible');">
+            <div class="img-fallback">
+                <div class="img-fallback-icon"><i data-lucide="image-off" style="width:24px;height:24px;"></i></div>
+                <span style="font-size:13px;">Image could not be loaded</span>
+                <span style="font-size:11px;color:#334155;">9_prototype.png</span>
+            </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:16px;color:#475569;font-size:12px;cursor:pointer;" onclick="tryOpenLightbox('#prototype')">
+            <i data-lucide="maximize-2" style="width:13px;height:13px;"></i> Click image to expand
+        </div>
+    </section>
+
+    <div class="section-divider" style="margin:0 auto;"></div>
+
+    <!-- ========== 10 TESTING — FULLY REBUILT ========== -->
+    <section class="case-section fade-section" id="testing">
+        <div class="hero-glow"></div>
+        <div class="section-badge"><i data-lucide="flask-conical" style="width:13px;height:13px;"></i> Section 10</div>
+        <h1 class="section-title">Testing</h1>
+        <p class="section-desc">Comprehensive usability testing with 12 participants across multiple roles, using task-based scenarios and think-aloud protocols to validate the platform's ease of use and identify improvement areas.</p>
+
+        <div style="max-width:1200px;width:100%;">
+
+            <!-- Test Objectives & Methods -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin-bottom:28px;">
+                <div class="result-card">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+                        <div style="width:36px;height:36px;border-radius:10px;background:rgba(99,102,241,0.12);display:flex;align-items:center;justify-content:center;">
+                            <i data-lucide="target" style="width:18px;height:18px;color:#818cf8;"></i>
+                        </div>
+                        <div style="font-size:15px;font-weight:600;color:#e2e8f0;">Test Objectives</div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:12px;">
+                        <div style="display:flex;gap:10px;align-items:flex-start;">
+                            <div style="width:20px;height:20px;border-radius:6px;background:rgba(99,102,241,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                                <i data-lucide="check" style="width:11px;height:11px;color:#818cf8;"></i>
+                            </div>
+                            <span style="font-size:13px;color:#94a3b8;line-height:1.5;">Verify overall platform usability and learnability</span>
+                        </div>
+                        <div style="display:flex;gap:10px;align-items:flex-start;">
+                            <div style="width:20px;height:20px;border-radius:6px;background:rgba(99,102,241,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                                <i data-lucide="check" style="width:11px;height:11px;color:#818cf8;"></i>
+                            </div>
+                            <span style="font-size:13px;color:#94a3b8;line-height:1.5;">Identify navigation pain points and friction areas</span>
+                        </div>
+                        <div style="display:flex;gap:10px;align-items:flex-start;">
+                            <div style="width:20px;height:20px;border-radius:6px;background:rgba(99,102,241,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                                <i data-lucide="check" style="width:11px;height:11px;color:#818cf8;"></i>
+                            </div>
+                            <span style="font-size:13px;color:#94a3b8;line-height:1.5;">Validate that core user flows are intuitive and efficient</span>
+                        </div>
+                        <div style="display:flex;gap:10px;align-items:flex-start;">
+                            <div style="width:20px;height:20px;border-radius:6px;background:rgba(99,102,241,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                                <i data-lucide="check" style="width:11px;height:11px;color:#818cf8;"></i>
+                            </div>
+                            <span style="font-size:13px;color:#94a3b8;line-height:1.5;">Measure task completion rates and time-on-task</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+                        <div style="width:36px;height:36px;border-radius:10px;background:rgba(16,185,129,0.12);display:flex;align-items:center;justify-content:center;">
+                            <i data-lucide="beaker" style="width:18px;height:18px;color:#34d399;"></i>
+                        </div>
+                        <div style="font-size:15px;font-weight:600;color:#e2e8f0;">Test Methods</div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                        <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);text-align:center;">
+                            <i data-lucide="mouse-pointer-click" style="width:18px;height:18px;color:#64748b;margin:0 auto 6px;display:block;"></i>
+                            <div style="font-size:11px;color:#94a3b8;font-weight:500;">Task-Based Testing</div>
+                        </div>
+                        <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);text-align:center;">
+                            <i data-lucide="message-circle" style="width:18px;height:18px;color:#64748b;margin:0 auto 6px;display:block;"></i>
+                            <div style="font-size:11px;color:#94a3b8;font-weight:500;">Think Aloud</div>
+                        </div>
+                        <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);text-align:center;">
+                            <i data-lucide="clipboard-list" style="width:18px;height:18px;color:#64748b;margin:0 auto 6px;display:block;"></i>
+                            <div style="font-size:11px;color:#94a3b8;font-weight:500;">SUS Questionnaire</div>
+                        </div>
+                        <div style="padding:12px;border-radius:10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.05);text-align:center;">
+                            <i data-lucide="video" style="width:18px;height:18px;color:#64748b;margin:0 auto 6px;display:block;"></i>
+                            <div style="font-size:11px;color:#94a3b8;font-weight:500;">Session Recording</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Participants -->
+            <div class="result-card" style="margin-bottom:28px;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+                    <div style="width:36px;height:36px;border-radius:10px;background:rgba(168,85,247,0.12);display:flex;align-items:center;justify-content:center;">
+                        <i data-lucide="users" style="width:18px;height:18px;color:#a855f7;"></i>
+                    </div>
+                    <div>
+                        <div style="font-size:15px;font-weight:600;color:#e2e8f0;">Participants</div>
+                        <div style="font-size:12px;color:#64748b;">12 participants across 4 role categories</div>
+                    </div>
+                    <div style="margin-left:auto;padding:6px 14px;border-radius:50px;background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);font-size:12px;color:#c084fc;font-weight:600;">n = 12</div>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;">
+                    <!-- Agents -->
+                    <div style="text-align:center;">
+                        <div style="display:flex;justify-content:center;gap:6px;margin-bottom:10px;flex-wrap:wrap;">
+                            <div class="participant-dot" style="background:rgba(99,102,241,0.2);color:#818cf8;">M</div>
+                            <div class="participant-dot" style="background:rgba(99,102,241,0.2);color:#818cf8;">J</div>
+                            <div class="participant-dot" style="background:rgba(99,102,241,0.2);color:#818cf8;">R</div>
+                            <div class="participant-dot" style="background:rgba(99,102,241,0.2);color:#818cf8;">K</div>
+                        </div>
+                        <div style="font-size:13px;font-weight:600;color:#e2e8f0;">Real Estate Agents</div>
+                        <div style="font-size:22px;font-weight:700;color:#818cf8;margin-top:2px;">4</div>
+                    </div>
+                    <!-- Investors -->
+                    <div style="text-align:center;">
+                        <div style="display:flex;justify-content:center;gap:6px;margin-bottom:10px;flex-wrap:wrap;">
+                            <div class="participant-dot" style="background:rgba(16,185,129,0.2);color:#34d399;">S</div>
+                            <div class="participant-dot" style="background:rgba(16,185,129,0.2);color:#34d399;">L</div>
+                            <div class="participant-dot" style="background:rgba(16,185,129,0.2);color:#34d399;">T</div>
+                        </div>
+                        <div style="font-size:13px;font-weight:600;color:#e2e8f0;">Property Investors</div>
+                        <div style="font-size:22px;font-weight:700;color:#34d399;margin-top:2px;">3</div>
+                    </div>
+                    <!-- Buyers -->
+                    <div style="text-align:center;">
+                        <div style="display:flex;justify-content:center;gap:6px;margin-bottom:10px;flex-wrap:wrap;">
+                            <div class="participant-dot" style="background:rgba(245,158,11,0.2);color:#f59e0b;">D</div>
+                            <div class="participant-dot" style="background:rgba(245,158,11,0.2);color:#f59e0b;">A</div>
+                            <div class="participant-dot" style="background:rgba(245,158,11,0.2);color:#f59e0b;">N</div>
+                            <div class="participant-dot" style="background:rgba(245,158,11,0.2);color:#f59e0b;">P</div>
+                        </div>
+                        <div style="font-size:13px;font-weight:600;color:#e2e8f0;">Home Buyers</div>
+                        <div style="font-size:22px;font-weight:700;color:#f59e0b;margin-top:2px;">4</div>
+                    </div>
+                    <!-- Managers -->
+                    <div style="text-align:center;">
+                        <div style="display:flex;justify-content:center;gap:6px;margin-bottom:10px;flex-wrap:wrap;">
+                            <div class="participant-dot" style="background:rgba(236,72,153,0.2);color:#ec4899;">C</div>
+                        </div>
+                        <div style="font-size:13px;font-weight:600;color:#e2e8f0;">Agency Managers</div>
+                        <div style="font-size:22px;font-weight:700;color:#ec4899;margin-top:2px;">1</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SUS Score Chart -->
+            <div class="result-card" style="margin-bottom:28px;">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:24px;">
+                    <div style="width:36px;height:36px;border-radius:10px;background:rgba(99,102,241,0.12);display:flex;align-items:center;justify-content:center;">
+                        <i data-lucide="bar-chart-3" style="width:18px;height:18px;color:#818cf8;"></i>
+                    </div>
+                    <div>
+                        <div style="font-size:15px;font-weight:600;color:#e2e8f0;">SUS Scores — System Usability Scale</div>
+                        <div style="font-size:12px;color:#64748b;">Per-task scores and overall rating</div>
+                    </div>
+                </div>
+
+                <div style="display:flex;flex-direction:column;gap:14px;">
+                    <!-- Task scores -->
+                    <div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                            <span style="font-size:12px;color:#94a3b8;">Dashboard Navigation</span>
+                            <span style="font-size:12px;color:#64748b;">92 / 100</span>
+                        </div>
+                        <div class="sus-bar-track">
+                            <div class="sus-bar-fill sus-excellent" data-sus-width="92">92</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                            <span style="font-size:12px;color:#94a3b8;">Property Search & Filter</span>
+                            <span style="font-size:12px;color:#64748b;">85 / 100</span>
+                        </div>
+                        <div class="sus-bar-track">
+                            <div class="sus-bar-fill sus-excellent" data-sus-width="85">85</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                            <span style="font-size:12px;color:#94a3b8;">Lead Pipeline Management</span>
+                            <span style="font-size:12px;color:#64748b;">88 / 100</span>
+                        </div>
+                        <div class="sus-bar-track">
+                            <div class="sus-bar-fill sus-excellent" data-sus-width="88">88</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                            <span style="font-size:12px;color:#94a3b8;">Schedule a Visit</span>
+                            <span style="font-size:12px;color:#64748b;">82 / 100</span>
+                        </div>
+                        <div class="sus-bar-track">
+                            <div class="sus-bar-fill sus-good" data-sus-width="82">82</div>
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+                            <span style="font-size:12px;color:#94a3b8;">Messaging & Communication</span>
+                            <span style="font-size:12px;color:#64748b;">90 / 100</span>
+                        </div>
+                        <div class="sus-bar-track">
+                            <div class="sus-bar-fill sus-excellent" data-sus-width="90">90</div>
+                        </div>
+                    </div>
+
+                    <!-- Divider -->
+                    <div style="height:1px;background:rgba(255,255,255,0.06);margin:4px 0;"></div>
+
+                    <!-- Overall -->
+                    <div>
+                        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
+                            <span style="font-size:14px;font-weight:600;color:#e2e8f0;">Overall SUS Score</span>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <span style="font-size:13px;color:#64748b;">87.8 / 100</span>
+                                <span style="padding:4px 12px;border-radius:50px;background:rgba(16,185,129,0.12);border:1px solid rgba(16,185,129,0.25);font-size:11px;color:#34d399;font-weight:600;letter-spacing:0.03em;">EXCELLENT</span>
+                            </div>
+                        </div>
+                        <div class="sus-bar-track" style="height:34px;">
+                            <div class="sus-bar-fill sus-overall" data-sus-width="87.8" style="font-size:14px;">87.8</div>
+                        </div>
+                        <div style="display:flex;justify-content:space-between;margin-top:6px;">
+                            <span style="font-size:10px;color:#334155;">0 — Worst Imaginable</span>
+                            <span style="font-size:10px;color:#334155;">100 — Best Imaginable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Findings -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin-bottom:28px;">
+                <div class="result-card">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+                        <div style="width:36px;height:36px;border-radius:10px;background:rgba(16,185,129,0.12);display:flex;align-items:center;justify-content:center;">
+                            <i data-lucide="thumbs-up" style="width:18px;height:18px;color:#34d399;"></i>
+                        </div>
+                        <div style="font-size:15px;font-weight:600;color:#e2e8f0;">Positive Findings</div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px;">
+                        <div class="finding-card" style="background:rgba(16,185,129,0.03);border-color:rgba(16,185,129,0.1);">
+                            <div style="font-size:13px;color:#94a3b8;line-height:1.6;">Dashboard layout was praised as <span style="color:#34d399;font-weight:500;">"intuitive and clean"</span> — users found KPIs at a glance</div>
+                        </div>
+                        <div class="finding-card" style="background:rgba(16,185,129,0.03);border-color:rgba(16,185,129,0.1);">
+                            <div style="font-size:13px;color:#94a3b8;line-height:1.6;">Property search filters were considered <span style="color:#34d399;font-weight:500;">"powerful yet simple"</span> by 10/12 users</div>
+                        </div>
+                        <div class="finding-card" style="background:rgba(16,185,129,0.03);border-color:rgba(16,185,129,0.1);">
+                            <div style="font-size:13px;color:#94a3b8;line-height:1.6;">Lead pipeline drag-and-drop received <span style="color:#34d399;font-weight:500;">universal positive feedback</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+                        <div style="width:36px;height:36px;border-radius:10px;background:rgba(245,158,11,0.12);display:flex;align-items:center;justify-content:center;">
+                            <i data-lucide="alert-circle" style="width:18px;height:18px;color:#f59e0b;"></i>
+                        </div>
+                        <div style="font-size:15px;font-weight:600;color:#e2e8f0;">Minor Issues Found</div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px;">
+                        <div class="finding-card" style="background:rgba(245,158,11,0.03);border-color:rgba(245,158,11,0.1);">
+                            <div style="font-size:13px;color:#94a3b8;line-height:1.6;"><span style="color:#f59e0b;font-weight:500;">Calendar filter missing</span> — 3 users wanted to filter visits by date range in scheduling</div>
+                        </div>
+                        <div class="finding-card" style="background:rgba(245,158,11,0.03);border-color:rgba(245,158,11,0.1);">
+                            <div style="font-size:13px;color:#94a3b8;line-height:1.6;"><span style="color:#f59e0b;font-weight:500;">Export button unclear</span> — 2 users couldn't find the lead data export option</div>
+                        </div>
+                        <div class="finding-card" style="background:rgba(245,158,11,0.03);border-color:rgba(245,158,11,0.1);">
+                            <div style="font-size:13px;color:#94a3b8;line-height:1.6;"><span style="color:#f59e0b;font-weight:500;">Mobile nav confusion</span> — 1 user initially missed the hamburger menu on tablet</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Improvements & User Feedback -->
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin-bottom:28px;">
+                <div class="result-card">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+                        <div style="width:36px;height:36px;border-radius:10px;background:rgba(6,182,212,0.12);display:flex;align-items:center;justify-content:center;">
+                            <i data-lucide="wrench" style="width:18px;height:18px;color:#06b6d4;"></i>
+                        </div>
+                        <div style="font-size:15px;font-weight:600;color:#e2e8f0;">Improvements Made</div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:12px;">
+                        <div style="display:flex;gap:10px;align-items:flex-start;">
+                            <div style="width:22px;height:22px;border-radius:50%;background:rgba(6,182,212,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                                <span style="font-size:10px;font-weight:700;color:#06b6d4;">1</span>
+                            </div>
+                            <div>
+                                <div style="font-size:13px;color:#e2e8f0;font-weight:500;">Added calendar date-range filter</div>
+                                <div style="font-size:12px;color:#64748b;line-height:1.5;margin-top:2px;">To the Schedule Visit page for quick date-based filtering</div>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:10px;align-items:flex-start;">
+                            <div style="width:22px;height:22px;border-radius:50%;background:rgba(6,182,212,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                                <span style="font-size:10px;font-weight:700;color:#06b6d4;">2</span>
+                            </div>
+                            <div>
+                                <div style="font-size:13px;color:#e2e8f0;font-weight:500;">Made export button more prominent</div>
+                                <div style="font-size:12px;color:#64748b;line-height:1.5;margin-top:2px;">Relocated to header toolbar with clear icon + label</div>
+                            </div>
+                        </div>
+                        <div style="display:flex;gap:10px;align-items:flex-start;">
+                            <div style="width:22px;height:22px;border-radius:50%;background:rgba(6,182,212,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                                <span style="font-size:10px;font-weight:700;color:#06b6d4;">3</span>
+                            </div>
+                            <div>
+                                <div style="font-size:13px;color:#e2e8f0;font-weight:500;">Improved mobile nav visibility</div>
+                                <div style="font-size:12px;color:#64748b;line-height:1.5;margin-top:2px;">Added subtle animation hint to hamburger menu on first load</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="result-card">
+                    <div style="display:flex;align-items:center;gap:10px;margin-bottom:18px;">
+                        <div style="width:36px;height:36px;border-radius:10px;background:rgba(236,72,153,0.12);display:flex;align-items:center;justify-content:center;">
+                            <i data-lucide="quote" style="width:18px;height:18px;color:#ec4899;"></i>
+                        </div>
+                        <div style="font-size:15px;font-weight:600;color:#e2e8f0;">User Feedback Highlights</div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:14px;">
+                        <div style="padding:14px;border-radius:10px;background:rgba(255,255,255,0.02);border-left:3px solid #6366f1;">
+                            <p style="font-size:13px;color:#94a3b8;font-style:italic;line-height:1.6;">"This is exactly what I've been looking for. Everything I need is in one place now."</p>
+                            <span style="font-size:11px;color:#475569;margin-top:6px;display:block;">— Michael J., Real Estate Agent</span>
+                        </div>
+                        <div style="padding:14px;border-radius:10px;background:rgba(255,255,255,0.02);border-left:3px solid #10b981;">
+                            <p style="font-size:13px;color:#94a3b8;font-style:italic;line-height:1.6;">"The property search filters saved me hours compared to other platforms I've used."</p>
+                            <span style="font-size:11px;color:#475569;margin-top:6px;display:block;">— Sarah W., Property Investor</span>
+                        </div>
+                        <div style="padding:14px;border-radius:10px;background:rgba(255,255,255,0.02);border-left:3px solid #f59e0b;">
+                            <p style="font-size:13px;color:#94a3b8;font-style:italic;line-height:1.6;">"As a first-time buyer, this made the whole process feel much less overwhelming."</p>
+                            <span style="font-size:11px;color:#475569;margin-top:6px;display:block;">— David B., Home Buyer</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Next Steps -->
+            <div class="result-card" style="border-color:rgba(99,102,241,0.15);background:rgba(99,102,241,0.03);">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                    <div style="width:36px;height:36px;border-radius:10px;background:rgba(99,102,241,0.12);display:flex;align-items:center;justify-content:center;">
+                        <i data-lucide="arrow-right-circle" style="width:18px;height:18px;color:#818cf8;"></i>
+                    </div>
+                    <div style="font-size:15px;font-weight:600;color:#e2e8f0;">Next Steps</div>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+                    <div style="display:flex;gap:10px;align-items:center;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);">
+                        <div style="width:28px;height:28px;border-radius:8px;background:rgba(99,102,241,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <i data-lucide="refresh-cw" style="width:14px;height:14px;color:#818cf8;"></i>
+                        </div>
+                        <div style="font-size:12px;color:#94a3b8;line-height:1.4;">Conduct Round 2 usability testing with updated prototype</div>
+                    </div>
+                    <div style="display:flex;gap:10px;align-items:center;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);">
+                        <div style="width:28px;height:28px;border-radius:8px;background:rgba(16,185,129,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <i data-lucide="code" style="width:14px;height:14px;color:#34d399;"></i>
+                        </div>
+                        <div style="font-size:12px;color:#94a3b8;line-height:1.4;">Hand off to dev team with annotated design specs</div>
+                    </div>
+                    <div style="display:flex;gap:10px;align-items:center;padding:12px;border-radius:10px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);">
+                        <div style="width:28px;height:28px;border-radius:8px;background:rgba(168,85,247,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                            <i data-lucide="trending-up" style="width:14px;height:14px;color:#a855f7;"></i>
+                        </div>
+                        <div style="font-size:12px;color:#94a3b8;line-height:1.4;">Track post-launch metrics and iterate based on analytics</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <div class="section-divider" style="margin:0 auto;"></div>
+
+    <!-- ========== 11 RESULTS ========== -->
+    <section class="case-section fade-section" id="results">
+        <div class="hero-glow"></div>
+        <div class="section-badge"><i data-lucide="trophy" style="width:13px;height:13px;"></i> Section 11</div>
+        <h1 class="section-title">Results</h1>
+        <p class="section-desc">The final synthesis of our design process — measurable outcomes, key takeaways, and the impact Market IQ delivers for real estate professionals worldwide.</p>
+
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;max-width:1200px;width:100%;margin-bottom:32px;">
+            <div class="result-card" style="text-align:center;">
+                <div style="font-size:40px;font-weight:700;background:linear-gradient(to right,#6366f1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;">87.8</div>
+                <div style="font-size:12px;color:#94a3b8;margin-top:6px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;">SUS Score</div>
+                <div style="display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:3px 10px;border-radius:50px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);">
+                    <span style="font-size:10px;color:#34d399;font-weight:600;">Excellent</span>
+                </div>
+            </div>
+            <div class="result-card" style="text-align:center;">
+                <div style="font-size:40px;font-weight:700;background:linear-gradient(to right,#6366f1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;">10K+</div>
+                <div style="font-size:12px;color:#94a3b8;margin-top:6px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;">Active Users</div>
+                <div style="display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:3px 10px;border-radius:50px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);">
+                    <span style="font-size:10px;color:#34d399;font-weight:600;">↑ Growing</span>
+                </div>
+            </div>
+            <div class="result-card" style="text-align:center;">
+                <div style="font-size:40px;font-weight:700;background:linear-gradient(to right,#6366f1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;">25%</div>
+                <div style="font-size:12px;color:#94a3b8;margin-top:6px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;">Monthly Growth</div>
+                <div style="display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:3px 10px;border-radius:50px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);">
+                    <span style="font-size:10px;color:#34d399;font-weight:600;">Sustained</span>
+                </div>
+            </div>
+            <div class="result-card" style="text-align:center;">
+                <div style="font-size:40px;font-weight:700;background:linear-gradient(to right,#6366f1,#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.1;">4.8</div>
+                <div style="font-size:12px;color:#94a3b8;margin-top:6px;font-weight:500;text-transform:uppercase;letter-spacing:0.05em;">Satisfaction</div>
+                <div style="display:inline-flex;align-items:center;gap:4px;margin-top:8px;padding:3px 10px;border-radius:50px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.2);">
+                    <span style="font-size:10px;color:#34d399;font-weight:600;">out of 5.0</span>
+                </div>
+            </div>
+        </div>
+
+        <div style="max-width:1200px;width:100%;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:16px;margin-bottom:32px;">
+            <div class="result-card">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                    <div style="width:36px;height:36px;border-radius:10px;background:rgba(99,102,241,0.12);display:flex;align-items:center;justify-content:center;">
+                        <i data-lucide="zap" style="width:18px;height:18px;color:#818cf8;"></i>
+                    </div>
+                    <div style="font-size:15px;font-weight:600;color:#e2e8f0;">Efficiency Gains</div>
+                </div>
+                <p style="font-size:13px;color:#94a3b8;line-height:1.7;margin-bottom:16px;">Reduced manual data entry time by 60%, consolidating fragmented workflows into a single intelligent dashboard.</p>
+                <div>
+                    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
+                        <span style="color:#64748b;">Task Completion Speed</span>
+                        <span style="color:#818cf8;font-weight:600;">92%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" data-width="92"></div></div>
+                </div>
+            </div>
+            <div class="result-card">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                    <div style="width:36px;height:36px;border-radius:10px;background:rgba(16,185,129,0.12);display:flex;align-items:center;justify-content:center;">
+                        <i data-lucide="target" style="width:18px;height:18px;color:#34d399;"></i>
+                    </div>
+                    <div style="font-size:15px;font-weight:600;color:#e2e8f0;">Lead Conversion</div>
+                </div>
+                <p style="font-size:13px;color:#94a3b8;line-height:1.7;margin-bottom:16px;">Improved lead tracking and pipeline management resulted in 35% higher conversion rates for agents.</p>
+                <div>
+                    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
+                        <span style="color:#64748b;">Conversion Improvement</span>
+                        <span style="color:#34d399;font-weight:600;">85%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" data-width="85" style="background:linear-gradient(to right,#10b981,#34d399);"></div></div>
+                </div>
+            </div>
+            <div class="result-card">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                    <div style="width:36px;height:36px;border-radius:10px;background:rgba(168,85,247,0.12);display:flex;align-items:center;justify-content:center;">
+                        <i data-lucide="heart" style="width:18px;height:18px;color:#a855f7;"></i>
+                    </div>
+                    <div style="font-size:15px;font-weight:600;color:#e2e8f0;">User Satisfaction</div>
+                </div>
+                <p style="font-size:13px;color:#94a3b8;line-height:1.7;margin-bottom:16px;">Users reported significantly reduced frustration and increased confidence when navigating complex real estate tasks.</p>
+                <div>
+                    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
+                        <span style="color:#64748b;">Positive Feedback Rate</span>
+                        <span style="color:#a855f7;font-weight:600;">96%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" data-width="96" style="background:linear-gradient(to right,#a855f7,#c084fc);"></div></div>
+                </div>
+            </div>
+            <div class="result-card">
+                <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px;">
+                    <div style="width:36px;height:36px;border-radius:10px;background:rgba(245,158,11,0.12);display:flex;align-items:center;justify-content:center;">
+                        <i data-lucide="globe" style="width:18px;height:18px;color:#f59e0b;"></i>
+                    </div>
+                    <div style="font-size:15px;font-weight:600;color:#e2e8f0;">Global Reach</div>
+                </div>
+                <p style="font-size:13px;color:#94a3b8;line-height:1.7;margin-bottom:16px;">Platform expanded to cover 50+ countries, serving diverse real estate markets with localized experiences.</p>
+                <div>
+                    <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
+                        <span style="color:#64748b;">Market Coverage</span>
+                        <span style="color:#f59e0b;font-weight:600;">78%</span>
+                    </div>
+                    <div class="progress-bar"><div class="progress-fill" data-width="78" style="background:linear-gradient(to right,#f59e0b,#fbbf24);"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <div style="max-width:1200px;width:100%;" class="result-card">
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;">
+                <div style="width:36px;height:36px;border-radius:10px;background:rgba(99,102,241,0.12);display:flex;align-items:center;justify-content:center;">
+                    <i data-lucide="lightbulb" style="width:18px;height:18px;color:#818cf8;"></i>
+                </div>
+                <div style="font-size:15px;font-weight:600;color:#e2e8f0;">Key Takeaways</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                    <div style="width:22px;height:22px;border-radius:6px;background:rgba(99,102,241,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                        <i data-lucide="check" style="width:12px;height:12px;color:#818cf8;"></i>
+                    </div>
+                    <p style="font-size:13px;color:#94a3b8;line-height:1.6;">A unified platform eliminates the #1 pain point: scattered information across multiple tools</p>
+                </div>
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                    <div style="width:22px;height:22px;border-radius:6px;background:rgba(16,185,129,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                        <i data-lucide="check" style="width:12px;height:12px;color:#34d399;"></i>
+                    </div>
+                    <p style="font-size:13px;color:#94a3b8;line-height:1.6;">User-centered research directly informed design decisions that achieved an "Excellent" SUS rating</p>
+                </div>
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                    <div style="width:22px;height:22px;border-radius:6px;background:rgba(168,85,247,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                        <i data-lucide="check" style="width:12px;height:12px;color:#a855f7;"></i>
+                    </div>
+                    <p style="font-size:13px;color:#94a3b8;line-height:1.6;">Responsive, multi-device prototype validated core flows before costly development</p>
+                </div>
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                    <div style="width:22px;height:22px;border-radius:6px;background:rgba(245,158,11,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                        <i data-lucide="check" style="width:12px;height:12px;color:#f59e0b;"></i>
+                    </div>
+                    <p style="font-size:13px;color:#94a3b8;line-height:1.6;">Iterative testing with 12 participants uncovered minor issues early, saving significant rework</p>
+                </div>
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                    <div style="width:22px;height:22px;border-radius:6px;background:rgba(236,72,153,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                        <i data-lucide="check" style="width:12px;height:12px;color:#ec4899;"></i>
+                    </div>
+                    <p style="font-size:13px;color:#94a3b8;line-height:1.6;">A robust design system ensures consistency and accelerates future feature development</p>
+                </div>
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                    <div style="width:22px;height:22px;border-radius:6px;background:rgba(6,182,212,0.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">
+                        <i data-lucide="check" style="width:12px;height:12px;color:#06b6d4;"></i>
+                    </div>
+                    <p style="font-size:13px;color:#94a3b8;line-height:1.6;">Clear user personas kept the team aligned on who we're designing for throughout the process</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top:60px;text-align:center;max-width:500px;">
+            <div style="font-size:12px;color:#475569;line-height:1.8;">
+                Market IQ — UX Case Study<br>
+                Designed with research-driven methodology<br>
+                <span style="color:#334155;">© 2024 All rights reserved</span>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">
+        <i data-lucide="x" style="width:18px;height:18px;"></i>
+    </button>
+    <img id="lightboxImg" src="" alt="Expanded view">
+</div>
+
+<script>
+    lucide.createIcons();
+
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const toggle = document.getElementById('mobileToggle');
+
+    toggle.addEventListener('click', () => {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('active');
+    });
+    overlay.addEventListener('click', () => {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+    });
+
+    function scrollToSection(id) {
+        const el = document.getElementById(id);
+        if (el) {
+            const y = el.getBoundingClientRect().top + window.pageYOffset - 20;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
+    }
+
+    const sections = document.querySelectorAll('.case-section');
+    const navItems = document.querySelectorAll('.nav-item');
+
+    function updateActiveNav() {
+        let current = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop - 120;
+            if (window.pageYOffset >= sectionTop) {
+                current = section.getAttribute('id');
+            }
+        });
+        navItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('data-target') === current) {
+                item.classList.add('active');
+            }
+        });
+    }
+
+    function updateScrollProgress() {
+        const scrollTop = window.pageYOffset;
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        document.getElementById('scrollFill').style.width = progress + '%';
+    }
+
+    // Fade-in observer
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+    document.querySelectorAll('.fade-section').forEach(s => fadeObserver.observe(s));
+
+    // Progress bar animation (Results page)
+    const progressObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('.progress-fill').forEach(fill => {
+                    const w = fill.getAttribute('data-width');
+                    if (w) fill.style.width = w + '%';
+                });
+            }
+        });
+    }, { threshold: 0.3 });
+    document.querySelectorAll('.result-card').forEach(card => {
+        if (card.querySelector('.progress-fill')) progressObserver.observe(card);
+    });
+
+    // SUS bar animation (Testing page)
+    const susObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('.sus-bar-fill').forEach(bar => {
+                    const w = bar.getAttribute('data-sus-width');
+                    if (w) bar.style.width = w + '%';
+                });
+            }
+        });
+    }, { threshold: 0.2 });
+    const testingSection = document.getElementById('testing');
+    if (testingSection) susObserver.observe(testingSection);
+
+    // Lightbox
+    function openLightbox(src) {
+        if (!src || src === '') return;
+        document.getElementById('lightboxImg').src = src;
+        document.getElementById('lightbox').classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+        document.getElementById('lightbox').classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    function tryOpenLightbox(selector) {
+        const img = document.querySelector(selector + ' .image-frame img');
+        if (img && img.src && img.style.display !== 'none') {
+            openLightbox(img.src);
+        }
+    }
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeLightbox();
+    });
+
+    // Image frame click — prevent lightbox if image failed
+    document.querySelectorAll('.image-frame').forEach(frame => {
+        const img = frame.querySelector('img');
+        const fallback = frame.querySelector('.img-fallback');
+        frame.addEventListener('click', function(e) {
+            if (fallback && fallback.classList.contains('visible')) {
+                e.stopPropagation();
+            }
+        });
+    });
+
+    window.addEventListener('scroll', () => {
+        updateActiveNav();
+        updateScrollProgress();
+    }, { passive: true });
+
+    updateActiveNav();
+    updateScrollProgress();
+    setTimeout(() => {
+        document.querySelector('#overview').classList.add('visible');
+    }, 100);
+</script>
+</body>
+</html>
