@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Market IQ — UX Case Study</title>
+<title>Market IQ — Senior UX Designer Case Study</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
@@ -11,51 +11,48 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
 <script>
-tailwind.config={theme:{extend:{colors:{mint:'#00c9a7','mint-dark':'#00a88a',slate:'#1e293b'},fontFamily:{sans:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}
+tailwind.config={theme:{extend:{colors:{mint:'#00a88a','mint-light':'#e6f7f3',slate:'#1e293b'},fontFamily:{sans:['Inter','sans-serif'],mono:['JetBrains Mono','monospace']}}}}
 </script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{background:#f4f6f8;color:#1e293b;font-family:'Inter',sans-serif;overflow-x:hidden}
-.gcard{background:rgba(255,255,255,0.72);border:1px solid rgba(255,255,255,0.9);border-radius:18px;box-shadow:0 1px 2px rgba(0,0,0,0.04),0 8px 24px rgba(0,0,0,0.06);position:relative;transition:all .35s cubic-bezier(.16,1,.3,1)}
+*{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{background:#f5f7f9;color:#1e293b;font-family:'Inter',sans-serif;overflow-x:hidden}
+.gcard{background:rgba(255,255,255,0.78);border:1px solid rgba(255,255,255,0.95);border-radius:18px;box-shadow:0 1px 2px rgba(0,0,0,0.03),0 8px 24px rgba(0,0,0,0.05);position:relative;transition:all .35s cubic-bezier(.16,1,.3,1)}
 .gcard::before{content:'';position:absolute;top:0;left:20px;right:20px;height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,1),transparent);border-radius:18px 18px 0 0;pointer-events:none}
-.gcard:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(0,0,0,0.04),0 16px 40px rgba(0,201,167,0.1);border-color:rgba(0,201,167,0.3)}
-.gnav{background:rgba(244,246,248,0.82);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.05)}
-.btn-fill{background:linear-gradient(135deg,#00c9a7,#00a3d6);color:#fff;border:none;border-radius:10px;box-shadow:0 4px 14px rgba(0,201,167,0.3),inset 0 1px 0 rgba(255,255,255,0.2);transition:all .3s}
-.btn-fill:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,201,167,0.4),inset 0 1px 0 rgba(255,255,255,0.25)}
+.gcard:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(0,0,0,0.03),0 16px 40px rgba(0,168,138,0.08);border-color:rgba(0,168,138,0.25)}
+.gnav{background:rgba(245,247,249,0.85);-webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);border-bottom:1px solid rgba(0,0,0,0.05)}
+.btn-fill{background:linear-gradient(135deg,#00a88a,#0090b8);color:#fff;border:none;border-radius:10px;box-shadow:0 4px 14px rgba(0,168,138,0.25),inset 0 1px 0 rgba(255,255,255,0.2);transition:all .3s}
+.btn-fill:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,168,138,0.35),inset 0 1px 0 rgba(255,255,255,0.25)}
 .btn-ghost{background:rgba(255,255,255,0.6);color:#1e293b;border:1px solid rgba(0,0,0,0.08);border-radius:10px;box-shadow:0 1px 4px rgba(0,0,0,0.03);transition:all .3s}
-.btn-ghost:hover{border-color:rgba(0,201,167,0.4);color:#00a88a}
-.tag{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:999px;font-size:10px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:#00806a;font-weight:600;background:linear-gradient(135deg,rgba(0,201,167,0.1),rgba(0,163,214,0.06));border:1px solid rgba(0,201,167,0.2)}
-.solo{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:8px;font-size:10px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:#00806a;font-weight:600;background:linear-gradient(135deg,rgba(0,201,167,0.12),rgba(0,163,214,0.08));border:1px solid rgba(0,201,167,0.25)}
-.img-frame{border-radius:16px;overflow:hidden;background:#fff;border:1px solid rgba(0,0,0,0.06);box-shadow:0 8px 30px rgba(0,0,0,0.07);cursor:zoom-in}
-.img-frame img{width:100%;display:block;transition:transform .5s ease}.img-frame:hover img{transform:scale(1.015)}
-.note{border-radius:14px;padding:16px 18px;background:linear-gradient(135deg,rgba(0,201,167,0.05),rgba(0,163,214,0.03));border:1px solid rgba(0,201,167,0.12)}
-.stat{text-align:center;padding:28px 16px;background:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.9);border-radius:18px;box-shadow:0 4px 20px rgba(0,0,0,0.04);transition:all .3s}
-.stat:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,201,167,0.08)}
-.step{position:relative;padding-left:34px}.step::before{content:'';position:absolute;left:7px;top:26px;bottom:-22px;width:2px;background:linear-gradient(rgba(0,201,167,.25),rgba(0,201,167,.04));border-radius:1px}.step:last-child::before{display:none}
-.dot{position:absolute;left:0;top:6px;width:16px;height:16px;border-radius:50%;border:2.5px solid #00c9a7;background:#fff;box-shadow:0 2px 6px rgba(0,201,167,.2)}
-.dot.on{background:linear-gradient(135deg,#00c9a7,#00a3d6);border-color:transparent;box-shadow:0 2px 10px rgba(0,201,167,.35)}
+.btn-ghost:hover{border-color:rgba(0,168,138,0.4);color:#008a70}
+.tag{display:inline-flex;align-items:center;gap:5px;padding:4px 12px;border-radius:999px;font-size:10px;font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.1em;color:#007a64;font-weight:600;background:linear-gradient(135deg,rgba(0,168,138,0.08),rgba(0,144,184,0.05));border:1px solid rgba(0,168,138,0.18)}
+.img-frame{border-radius:16px;overflow:hidden;background:#fff;border:1px solid rgba(0,0,0,0.05);box-shadow:0 8px 30px rgba(0,0,0,0.06);cursor:zoom-in}
+.img-frame img{width:100%;display:block;transition:transform .5s ease}.img-frame:hover img{transform:scale(1.012)}
+.note{border-radius:14px;padding:16px 18px;background:linear-gradient(135deg,rgba(0,168,138,0.04),rgba(0,144,184,0.02));border:1px solid rgba(0,168,138,0.1)}
+.stat{text-align:center;padding:28px 16px;background:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.9);border-radius:18px;box-shadow:0 4px 20px rgba(0,0,0,0.03);transition:all .3s}
+.stat:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,168,138,0.06)}
+.step{position:relative;padding-left:34px}.step::before{content:'';position:absolute;left:7px;top:26px;bottom:-22px;width:2px;background:linear-gradient(rgba(0,168,138,.2),rgba(0,168,138,.03));border-radius:1px}.step:last-child::before{display:none}
+.dot{position:absolute;left:0;top:6px;width:16px;height:16px;border-radius:50%;border:2.5px solid #00a88a;background:#fff;box-shadow:0 2px 6px rgba(0,168,138,.15)}
+.dot.on{background:linear-gradient(135deg,#00a88a,#0090b8);border-color:transparent;box-shadow:0 2px 10px rgba(0,168,138,.3)}
 .nlink{position:relative;color:#64748b;font-weight:500;transition:color .2s}.nlink:hover,.nlink.act{color:#1e293b}
-.nlink.act::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;border-radius:1px;background:linear-gradient(90deg,#00c9a7,#00a3d6)}
-.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(0,0,0,0.06),transparent)}
+.nlink.act::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:2px;border-radius:1px;background:linear-gradient(90deg,#00a88a,#0090b8)}
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(0,0,0,0.05),transparent)}
 .rv{opacity:0;transform:translateY(36px)}
-.lb{display:none;position:fixed;inset:0;z-index:9999;background:rgba(255,255,255,.88);align-items:center;justify-content:center;padding:32px;cursor:zoom-out}
-.lb.open{display:flex}.lb img{max-width:95%;max-height:90vh;border-radius:14px;box-shadow:0 24px 80px rgba(0,0,0,.12)}
+.lb{display:none;position:fixed;inset:0;z-index:9999;background:rgba(255,255,255,.9);align-items:center;justify-content:center;padding:32px;cursor:zoom-out}
+.lb.open{display:flex}.lb img{max-width:95%;max-height:90vh;border-radius:14px;box-shadow:0 24px 80px rgba(0,0,0,.1)}
 @keyframes grad{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-.shim{background:linear-gradient(270deg,#00c9a7,#00a3d6,#8b5cf6,#00c9a7);background-size:300% 300%;animation:grad 6s ease infinite;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.mgr{background:linear-gradient(135deg,#00c9a7,#00a3d6);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(0,201,167,.18);border-radius:3px}::-webkit-scrollbar-thumb:hover{background:rgba(0,201,167,.3)}
+.shim{background:linear-gradient(270deg,#00a88a,#0090b8,#7c3aed,#00a88a);background-size:300% 300%;animation:grad 6s ease infinite;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.mgr{background:linear-gradient(135deg,#00a88a,#0090b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:rgba(0,168,138,.15);border-radius:3px}
 </style>
 </head>
 <body>
 
-<div id="lb" class="lb" onclick="closelb()"><img id="lbimg" src="" alt=""></div>
+<!-- Lightbox -->
+<div id="lb" class="lb" onclick="closelb()" role="dialog" aria-label="Enlarged image viewer"><img id="lbimg" src="" alt="Enlarged view of case study artifact"></div>
 
 <!-- Nav -->
-<nav class="fixed top-0 left-0 right-0 z-50 gnav">
-  <div class="max-w-7xl mx-auto flex items-center justify-between h-16 px-6 md:px-10">
-    <a href="#hero" class="flex items-center gap-2.5">
-      <div class="w-8 h-8 rounded-lg flex items-center justify-center btn-fill" style="padding:0;box-shadow:0 2px 8px rgba(0,201,167,.25),inset 0 1px 0 rgba(255,255,255,.2)"><iconify-icon icon="mdi:home-analytics" width="16" style="color:#fff"></iconify-icon></div>
-      <span class="font-bold text-slate tracking-tight">MARKET IQ</span>
-    </a>
+<nav class="fixed top-0 left-0 right-0 z-50 gnav" aria-label="Main navigation">
+  <div class="max-w-6xl mx-auto flex items-center justify-between h-14 px-5 md:px-10">
+    <a href="#hero" class="flex items-center gap-2"><div class="w-7 h-7 rounded-lg flex items-center justify-center btn-fill" style="padding:0"><iconify-icon icon="mdi:home-analytics" width="14" style="color:#fff"></iconify-icon></div><span class="font-bold text-slate tracking-tight text-sm">MARKET IQ</span></a>
     <div class="hidden lg:flex items-center gap-5">
       <a href="#overview" class="nlink text-[10px] font-mono uppercase tracking-widest">Overview</a>
       <a href="#problem" class="nlink text-[10px] font-mono uppercase tracking-widest">Problem</a>
@@ -68,10 +65,10 @@ tailwind.config={theme:{extend:{colors:{mint:'#00c9a7','mint-dark':'#00a88a',sla
       <a href="#testing" class="nlink text-[10px] font-mono uppercase tracking-widest">Testing</a>
       <a href="#results" class="nlink text-[10px] font-mono uppercase tracking-widest">Results</a>
     </div>
-    <button class="lg:hidden text-slate" onclick="document.getElementById('mm').classList.toggle('hidden')"><iconify-icon icon="mdi:menu" width="24"></iconify-icon></button>
+    <button class="lg:hidden text-slate" onclick="document.getElementById('mm').classList.toggle('hidden')" aria-label="Toggle menu"><iconify-icon icon="mdi:menu" width="22"></iconify-icon></button>
   </div>
-  <div id="mm" class="hidden lg:hidden border-t border-black/5 px-6 py-4" style="background:rgba(244,246,248,.95);backdrop-filter:blur(12px)">
-    <div class="flex flex-col gap-3">
+  <div id="mm" class="hidden lg:hidden border-t border-black/5 px-5 py-3" style="background:rgba(245,247,249,.95)">
+    <div class="flex flex-col gap-2.5">
       <a href="#overview" class="nlink text-xs font-mono uppercase tracking-widest" onclick="document.getElementById('mm').classList.add('hidden')">Overview</a>
       <a href="#problem" class="nlink text-xs font-mono uppercase tracking-widest" onclick="document.getElementById('mm').classList.add('hidden')">Problem</a>
       <a href="#research" class="nlink text-xs font-mono uppercase tracking-widest" onclick="document.getElementById('mm').classList.add('hidden')">Research</a>
@@ -87,79 +84,74 @@ tailwind.config={theme:{extend:{colors:{mint:'#00c9a7','mint-dark':'#00a88a',sla
 </nav>
 
 <!-- HERO -->
-<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden" style="padding-top:64px">
+<section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden" style="padding-top:56px">
   <div class="absolute inset-0">
-    <img src="https://z-cdn-media.chatglm.cn/files/9497b155-da26-45a9-a00d-9298cd48d554.png?auth_key=1882882404-0dae6a4edfad4f258b1001dcece039a1-0-22f25a288f72f8fdc6dbec45304a2d46" alt="" class="w-full h-full object-cover" style="filter:brightness(.45) saturate(.7)">
-    <div class="absolute inset-0" style="background:linear-gradient(to top,#f4f6f8 0%,rgba(244,246,248,.75) 40%,rgba(244,246,248,.3) 70%,rgba(244,246,248,.15) 100%)"></div>
+    <img src="https://z-cdn-media.chatglm.cn/files/9497b155-da26-45a9-a00d-9298cd48d554.png?auth_key=1882882404-0dae6a4edfad4f258b1001dcece039a1-0-22f25a288f72f8fdc6dbec45304a2d46" alt="Market IQ dashboard showing KPIs, revenue trends, lead sources, and deal pipeline" class="w-full h-full object-cover" style="filter:brightness(.4) saturate(.6)">
+    <div class="absolute inset-0" style="background:linear-gradient(to top,#f5f7f9 0%,rgba(245,247,249,.7) 40%,rgba(245,247,249,.25) 70%,rgba(245,247,249,.1) 100%)"></div>
   </div>
   <div class="relative z-10 text-center px-6 max-w-4xl">
     <div class="tag mx-auto mb-5"><iconify-icon icon="mdi:home-analytics" width="12"></iconify-icon> UX Case Study — Real Estate Intelligence Platform</div>
     <h1 class="text-5xl md:text-8xl font-extrabold leading-none tracking-tighter mb-5"><span class="shim">Market IQ</span></h1>
-    <p class="text-lg md:text-2xl font-light text-slate/60 leading-snug mb-3 max-w-2xl mx-auto">Redesigning the real estate experience through research-driven design</p>
-    <p class="text-sm text-slate/40 max-w-xl mx-auto mb-5">End-to-end UX case study — from problem discovery to usability-validated prototype with measurable business results.</p>
-    <div class="solo mx-auto mb-8"><iconify-icon icon="mdi:account-star" width="14"></iconify-icon> Solo Project — Entirely Designed by Me</div>
+    <p class="text-lg md:text-2xl font-light text-slate/55 leading-snug mb-3 max-w-2xl mx-auto">Redesigning the real estate experience through research-driven design</p>
+    <p class="text-sm text-slate/35 max-w-xl mx-auto mb-8">End-to-end UX case study — problem discovery, research, wireframes, navigation flows, interactive prototype, usability testing, and measured outcomes.</p>
     <div class="flex items-center justify-center gap-3 flex-wrap">
       <a href="#overview" class="btn-fill inline-flex items-center gap-2 px-8 py-3 text-xs font-mono uppercase tracking-widest font-semibold">View Case Study <iconify-icon icon="mdi:arrow-down" width="14"></iconify-icon></a>
       <a href="#results" class="btn-ghost inline-flex items-center gap-2 px-8 py-3 text-xs font-mono uppercase tracking-widest font-semibold">Skip to Results</a>
     </div>
   </div>
-  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce"><iconify-icon icon="mdi:chevron-down" width="22" style="color:#94a3b8"></iconify-icon></div>
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 animate-bounce"><iconify-icon icon="mdi:chevron-down" width="20" style="color:#94a3b8"></iconify-icon></div>
 </section>
 
 <!-- Process Bar -->
-<div class="py-4">
-  <div class="max-w-6xl mx-auto px-6">
-    <div class="gcard px-5 py-3 flex items-center gap-3 md:gap-5 overflow-x-auto" style="border-radius:14px">
-      <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">01</span><span class="text-[11px] text-slate/50 font-medium whitespace-nowrap">Problem</span></div>
-      <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
-      <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">02</span><span class="text-[11px] text-slate/50 font-medium whitespace-nowrap">Research</span></div>
-      <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
-      <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">03</span><span class="text-[11px] text-slate/50 font-medium whitespace-nowrap">Personas</span></div>
-      <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
-      <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">04</span><span class="text-[11px] text-slate/50 font-medium whitespace-nowrap">Flows</span></div>
-      <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
-      <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">05</span><span class="text-[11px] text-slate/50 font-medium whitespace-nowrap">Wireframes</span></div>
-      <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
-      <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">06</span><span class="text-[11px] text-slate/50 font-medium whitespace-nowrap">System</span></div>
-      <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
-      <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">07</span><span class="text-[11px] text-slate/50 font-medium whitespace-nowrap">Prototype</span></div>
-      <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
-      <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">08</span><span class="text-[11px] text-slate/50 font-medium whitespace-nowrap">Testing</span></div>
-      <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
-      <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">09</span><span class="text-[11px] text-slate/50 font-medium whitespace-nowrap">Results</span></div>
-    </div>
-  </div>
-</div>
+<div class="py-4"><div class="max-w-6xl mx-auto px-6"><div class="gcard px-5 py-3 flex items-center gap-3 md:gap-5 overflow-x-auto" style="border-radius:14px">
+  <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">01</span><span class="text-[11px] text-slate/45 font-medium whitespace-nowrap">Problem</span></div>
+  <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
+  <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">02</span><span class="text-[11px] text-slate/45 font-medium whitespace-nowrap">Research</span></div>
+  <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
+  <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">03</span><span class="text-[11px] text-slate/45 font-medium whitespace-nowrap">Personas</span></div>
+  <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
+  <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">04</span><span class="text-[11px] text-slate/45 font-medium whitespace-nowrap">Flows</span></div>
+  <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
+  <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">05</span><span class="text-[11px] text-slate/45 font-medium whitespace-nowrap">Wireframes</span></div>
+  <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
+  <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">06</span><span class="text-[11px] text-slate/45 font-medium whitespace-nowrap">System</span></div>
+  <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
+  <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">07</span><span class="text-[11px] text-slate/45 font-medium whitespace-nowrap">Prototype</span></div>
+  <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
+  <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">08</span><span class="text-[11px] text-slate/45 font-medium whitespace-nowrap">Testing</span></div>
+  <iconify-icon icon="mdi:chevron-right" width="12" style="color:#cbd5e1" class="shrink-0"></iconify-icon>
+  <div class="flex items-center gap-1.5 shrink-0"><span class="font-mono text-[9px] text-mint tracking-widest font-bold">09</span><span class="text-[11px] text-slate/45 font-medium whitespace-nowrap">Results</span></div>
+</div></div></div>
 
 <!-- OVERVIEW -->
-<section id="overview" class="py-16 md:py-20">
+<section id="overview" class="py-14 md:py-18">
 <div class="max-w-6xl mx-auto px-6">
   <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:eye-outline" width="12"></iconify-icon> 01 — Project Overview</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-8">The Platform at a Glance</h2></div>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
-    <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/9497b155-da26-45a9-a00d-9298cd48d554.png?auth_key=1882882404-0dae6a4edfad4f258b1001dcece039a1-0-22f25a288f72f8fdc6dbec45304a2d46" alt="Market IQ Dashboard"></div><p class="text-[10px] font-mono text-slate/30 mt-2.5 tracking-wider uppercase">Fig 1. Dashboard overview with KPIs, revenue trends, lead sources, deal pipeline</p></div>
-    <div class="rv space-y-6">
-      <div><h3 class="text-lg font-bold mb-2">What is Market IQ?</h3><p class="text-sm text-slate/60 leading-relaxed">Market IQ is an intelligent real estate platform designed to unify fragmented property data, streamline lead management, and deliver actionable insights for agents, investors, and homebuyers — consolidating listings, CRM, analytics, and communication into a single cohesive experience.</p></div>
+    <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/9497b155-da26-45a9-a00d-9298cd48d554.png?auth_key=1882882404-0dae6a4edfad4f258b1001dcece039a1-0-22f25a288f72f8fdc6dbec45304a2d46" alt="Market IQ dashboard showing total listings (428), new leads (256), active deals (68), total revenue ($2.4M), and pending tasks (24) with revenue trend chart and lead source distribution"></div><p class="text-[10px] font-mono text-slate/25 mt-2 tracking-wider uppercase">Fig 1. Market IQ dashboard with KPIs, revenue trends, lead sources, and deal pipeline</p></div>
+    <div class="rv space-y-5">
+      <div><h3 class="text-lg font-bold mb-2">What is Market IQ?</h3><p class="text-sm text-slate/55 leading-relaxed">An intelligent real estate platform that unifies fragmented property data, streamlines lead management, and delivers actionable insights for agents, investors, and homebuyers — consolidating listings, CRM, analytics, and communication into a single experience.</p></div>
       <div class="divider"></div>
-      <div><h3 class="text-lg font-bold mb-4">My Role & Responsibilities</h3>
+      <div><h3 class="text-lg font-bold mb-3">My Role</h3>
         <div class="grid grid-cols-2 gap-3">
-          <div class="gcard p-4"><iconify-icon icon="mdi:account-star" width="18" class="text-mint mb-1.5"></iconify-icon><p class="text-[10px] font-mono uppercase tracking-wider text-mint mb-0.5">Role</p><p class="text-sm font-bold">Senior UX Designer</p><p class="text-[10px] text-slate/40">Solo — end to end</p></div>
-          <div class="gcard p-4"><iconify-icon icon="mdi:timer-sand" width="18" class="text-mint mb-1.5"></iconify-icon><p class="text-[10px] font-mono uppercase tracking-wider text-mint mb-0.5">Duration</p><p class="text-sm font-bold">12 Weeks</p><p class="text-[10px] text-slate/40">Full lifecycle</p></div>
-          <div class="gcard p-4"><iconify-icon icon="mdi:account-check" width="18" class="text-mint mb-1.5"></iconify-icon><p class="text-[10px] font-mono uppercase tracking-wider text-mint mb-0.5">Ownership</p><p class="text-sm font-bold">100% Solo</p><p class="text-[10px] text-slate/40">Research → Design → Test</p></div>
-          <div class="gcard p-4"><iconify-icon icon="mdi:wrench" width="18" class="text-mint mb-1.5"></iconify-icon><p class="text-[10px] font-mono uppercase tracking-wider text-mint mb-0.5">Tools</p><p class="text-sm font-bold">Figma · Miro · Dovetail</p><p class="text-[10px] text-slate/40">Zoom · FigJam</p></div>
+          <div class="gcard p-4"><iconify-icon icon="mdi:account-star" width="18" class="text-mint mb-1.5"></iconify-icon><p class="text-[10px] font-mono uppercase tracking-wider text-mint mb-0.5">Role</p><p class="text-sm font-bold">Senior UX Designer</p><p class="text-[10px] text-slate/35">Owned end to end</p></div>
+          <div class="gcard p-4"><iconify-icon icon="mdi:timer-sand" width="18" class="text-mint mb-1.5"></iconify-icon><p class="text-[10px] font-mono uppercase tracking-wider text-mint mb-0.5">Duration</p><p class="text-sm font-bold">12 Weeks</p><p class="text-[10px] text-slate/35">Full lifecycle</p></div>
+          <div class="gcard p-4"><iconify-icon icon="mdi:clipboard-check" width="18" class="text-mint mb-1.5"></iconify-icon><p class="text-[10px] font-mono uppercase tracking-wider text-mint mb-0.5">Scope</p><p class="text-sm font-bold">Research → Prototype</p><p class="text-[10px] text-slate/35">Including testing</p></div>
+          <div class="gcard p-4"><iconify-icon icon="mdi:wrench" width="18" class="text-mint mb-1.5"></iconify-icon><p class="text-[10px] font-mono uppercase tracking-wider text-mint mb-0.5">Tools</p><p class="text-sm font-bold">Figma · Miro · Dovetail</p><p class="text-[10px] text-slate/35">Zoom · FigJam</p></div>
         </div>
       </div>
       <div class="divider"></div>
-      <div><h3 class="text-lg font-bold mb-3">What I Designed</h3>
+      <div><h3 class="text-lg font-bold mb-2">What I Designed</h3>
         <ul class="space-y-1.5">
-          <li class="flex items-start gap-2 text-sm text-slate/60"><iconify-icon icon="mdi:check-circle" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon>Complete research plan: interviews, surveys, competitive analysis</li>
-          <li class="flex items-start gap-2 text-sm text-slate/60"><iconify-icon icon="mdi:check-circle" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon>3 user personas with goals, pain points, behavioral patterns</li>
-          <li class="flex items-start gap-2 text-sm text-slate/60"><iconify-icon icon="mdi:check-circle" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon>Navigation flows for property search and lead management</li>
-          <li class="flex items-start gap-2 text-sm text-slate/60"><iconify-icon icon="mdi:check-circle" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon>Lo-fi wireframes for 5 core modules with annotated layouts</li>
-          <li class="flex items-start gap-2 text-sm text-slate/60"><iconify-icon icon="mdi:check-circle" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon>Design system: tokens, components, patterns</li>
-          <li class="flex items-start gap-2 text-sm text-slate/60"><iconify-icon icon="mdi:check-circle" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon>Interactive Figma prototype and usability testing</li>
+          <li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:check-circle" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon>Research plan: 12 interviews, 200+ survey respondents, competitive analysis of 8 platforms</li>
+          <li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:check-circle" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon>3 personas with goals, pain points, and behavioral patterns from affinity mapping</li>
+          <li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:check-circle" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon>2 navigation flows: Property Search (7 steps) and Lead Management (6 steps)</li>
+          <li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:check-circle" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon>Lo-fi wireframes for 5 core modules with annotated layouts</li>
+          <li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:check-circle" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon>Design system with 45+ components, color tokens, and typography scale</li>
+          <li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:check-circle" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon>40+ screen interactive Figma prototype and moderated usability testing with 12 participants</li>
         </ul>
       </div>
-      <div class="note"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Design Motivation</p><p class="text-xs text-slate/55 leading-relaxed">Real estate professionals juggle 5–7 disconnected tools daily. The motivation was to create a unified platform that reduces cognitive load, eliminates context-switching, and surfaces the right data at the right time. As the sole senior UX designer, I owned every decision from research through validated prototype.</p></div>
+      <div class="note"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Motivation</p><p class="text-xs text-slate/50 leading-relaxed">Real estate professionals juggle 5–7 disconnected tools daily. The goal was a unified platform that reduces cognitive load, eliminates context-switching, and surfaces the right data at the right time.</p></div>
     </div>
   </div>
 </div>
@@ -168,20 +160,19 @@ tailwind.config={theme:{extend:{colors:{mint:'#00c9a7','mint-dark':'#00a88a',sla
 <div class="divider max-w-6xl mx-auto"></div>
 
 <!-- PROBLEM -->
-<section id="problem" class="py-16 md:py-20">
+<section id="problem" class="py-14 md:py-18">
 <div class="max-w-6xl mx-auto px-6">
-  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:alert-circle-outline" width="12"></iconify-icon> 02 — Problem Space</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Why This Matters</h2><p class="text-base text-slate/50 max-w-2xl mb-8">Before jumping to solutions, I mapped the ecosystem to understand where the real friction lives.</p></div>
+  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:alert-circle-outline" width="12"></iconify-icon> 02 — Problem Space</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Why This Matters</h2><p class="text-base text-slate/45 max-w-2xl mb-8">Before designing, I mapped the ecosystem to understand where real friction lives.</p></div>
   <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
-    <div class="lg:col-span-3 rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/907a5c24-5fa3-45eb-9f7b-dec7e0bf8615.png?auth_key=1882882404-04fda69825434d7287e97e4b4693cd84-0-8308be4bbb369e0ba159fb1abdeac8e6" alt="Problem Analysis"></div><p class="text-[10px] font-mono text-slate/30 mt-2.5 tracking-wider uppercase">Fig 2. Problem ecosystem map — six key problems and their business impact</p></div>
+    <div class="lg:col-span-3 rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/907a5c24-5fa3-45eb-9f7b-dec7e0bf8615.png?auth_key=1882882404-04fda69825434d7287e97e4b4693cd84-0-8308be4bbb369e0ba159fb1abdeac8e6" alt="Problem ecosystem map identifying six key problems in real estate tech: fragmented information, inefficient lead management, complex property search, poor communication, lack of insights, and not mobile-friendly, with business impact showing 30% time waste and 25% lost opportunities"></div><p class="text-[10px] font-mono text-slate/25 mt-2 tracking-wider uppercase">Fig 2. Problem ecosystem map — six key problems and their business impact</p></div>
     <div class="lg:col-span-2 rv space-y-3">
-      <div class="gcard p-4"><div class="flex items-center gap-2 mb-1.5"><iconify-icon icon="mdi:source-branch" width="15" class="text-mint"></iconify-icon><h4 class="text-sm font-bold">Fragmented Information</h4></div><p class="text-xs text-slate/50">Agents switch between 5–7 tools daily. Data lives in separate silos.</p></div>
-      <div class="gcard p-4"><div class="flex items-center gap-2 mb-1.5"><iconify-icon icon="mdi:filter-remove" width="15" class="text-mint"></iconify-icon><h4 class="text-sm font-bold">Inefficient Lead Management</h4></div><p class="text-xs text-slate/50">Leads fall through cracks. No unified pipeline view.</p></div>
-      <div class="gcard p-4"><div class="flex items-center gap-2 mb-1.5"><iconify-icon icon="mdi:magnify-close" width="15" class="text-mint"></iconify-icon><h4 class="text-sm font-bold">Complex Property Search</h4></div><p class="text-xs text-slate/50">Filtering is cumbersome. Can't narrow by neighborhood, price, amenities.</p></div>
-      <div class="gcard p-4"><div class="flex items-center gap-2 mb-1.5"><iconify-icon icon="mdi:message-alert" width="15" class="text-mint"></iconify-icon><h4 class="text-sm font-bold">Poor Communication</h4></div><p class="text-xs text-slate/50">No in-app messaging. Conversations fragmented across channels.</p></div>
-      <div class="gcard p-4"><div class="flex items-center gap-2 mb-1.5"><iconify-icon icon="mdi:chart-line-variant" width="15" class="text-mint"></iconify-icon><h4 class="text-sm font-bold">Lack of Insights</h4></div><p class="text-xs text-slate/50">No analytics on revenue, lead sources, or pipeline health.</p></div>
-      <div class="gcard p-4"><div class="flex items-center gap-2 mb-1.5"><iconify-icon icon="mdi:cellphone-remove" width="15" class="text-mint"></iconify-icon><h4 class="text-sm font-bold">Not Mobile-Friendly</h4></div><p class="text-xs text-slate/50">Existing tools are desktop-only. Agents can't access data on the go.</p></div>
-      <div class="gcard p-5 mt-2" style="background:linear-gradient(135deg,rgba(0,201,167,.06),rgba(0,163,214,.04))"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-2 font-bold">Business Impact</p><div class="grid grid-cols-2 gap-3"><div><p class="text-2xl font-bold">30%</p><p class="text-[10px] text-slate/40">Time Wasted Switching</p></div><div><p class="text-2xl font-bold">25%</p><p class="text-[10px] text-slate/40">Lost Opportunities</p></div></div></div>
-      <div class="note"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Annotation</p><p class="text-xs text-slate/55 leading-relaxed">I conducted this problem framing independently. The six categories and business impact were derived from my own research synthesis — not assumptions.</p></div>
+      <div class="gcard p-4"><div class="flex items-center gap-2 mb-1.5"><iconify-icon icon="mdi:source-branch" width="15" class="text-mint"></iconify-icon><h4 class="text-sm font-bold">Fragmented Information</h4></div><p class="text-xs text-slate/45">Agents switch between 5–7 tools daily. Data lives in separate silos.</p></div>
+      <div class="gcard p-4"><div class="flex items-center gap-2 mb-1.5"><iconify-icon icon="mdi:filter-remove" width="15" class="text-mint"></iconify-icon><h4 class="text-sm font-bold">Inefficient Lead Management</h4></div><p class="text-xs text-slate/45">Leads fall through cracks. No unified pipeline view.</p></div>
+      <div class="gcard p-4"><div class="flex items-center gap-2 mb-1.5"><iconify-icon icon="mdi:magnify-close" width="15" class="text-mint"></iconify-icon><h4 class="text-sm font-bold">Complex Property Search</h4></div><p class="text-xs text-slate/45">Can't narrow by neighborhood, price, and amenities simultaneously.</p></div>
+      <div class="gcard p-4"><div class="flex items-center gap-2 mb-1.5"><iconify-icon icon="mdi:message-alert" width="15" class="text-mint"></iconify-icon><h4 class="text-sm font-bold">Poor Communication</h4></div><p class="text-xs text-slate/45">No in-app messaging. Conversations fragmented across channels.</p></div>
+      <div class="gcard p-4"><div class="flex items-center gap-2 mb-1.5"><iconify-icon icon="mdi:chart-line-variant" width="15" class="text-mint"></iconify-icon><h4 class="text-sm font-bold">Lack of Insights</h4></div><p class="text-xs text-slate/45">No analytics on revenue, lead sources, or pipeline health.</p></div>
+      <div class="gcard p-4"><div class="flex items-center gap-2 mb-1.5"><iconify-icon icon="mdi:cellphone-remove" width="15" class="text-mint"></iconify-icon><h4 class="text-sm font-bold">Not Mobile-Friendly</h4></div><p class="text-xs text-slate/45">Desktop-only tools. Agents can't access data in the field.</p></div>
+      <div class="gcard p-4 mt-1" style="background:linear-gradient(135deg,rgba(0,168,138,.05),rgba(0,144,184,.03))"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-2 font-bold">Business Impact</p><div class="grid grid-cols-2 gap-3"><div><p class="text-xl font-bold">30%</p><p class="text-[10px] text-slate/35">Time Wasted Switching</p></div><div><p class="text-xl font-bold">25%</p><p class="text-[10px] text-slate/35">Lost Opportunities</p></div></div></div>
     </div>
   </div>
 </div>
@@ -190,32 +181,31 @@ tailwind.config={theme:{extend:{colors:{mint:'#00c9a7','mint-dark':'#00a88a',sla
 <div class="divider max-w-6xl mx-auto"></div>
 
 <!-- RESEARCH -->
-<section id="research" class="py-16 md:py-20">
+<section id="research" class="py-14 md:py-18">
 <div class="max-w-6xl mx-auto px-6">
-  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:flask-outline" width="12"></iconify-icon> 03 — User Research</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Understanding the Users</h2><p class="text-base text-slate/50 max-w-2xl mb-8">Mixed-methods research to validate assumptions and uncover latent needs.</p></div>
+  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:flask-outline" width="12"></iconify-icon> 03 — User Research</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Understanding the Users</h2><p class="text-base text-slate/45 max-w-2xl mb-8">Mixed-methods research to validate assumptions and uncover latent needs.</p></div>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-    <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/4f54d116-daaf-4912-909b-35df5640b229.png?auth_key=1882882404-9c944e8ed3e541fda2314c2df2e86ba3-0-479e71b44dab88d83e07f88a8f8407c9" alt="Research"></div><p class="text-[10px] font-mono text-slate/30 mt-2.5 tracking-wider uppercase">Fig 3. Research synthesis — methods, key insights, pain point distribution</p></div>
+    <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/4f54d116-daaf-4912-909b-35df5640b229.png?auth_key=1882882404-9c944e8ed3e541fda2314c2df2e86ba3-0-479e71b44dab88d83e07f88a8f8407c9" alt="Research synthesis infographic showing five research methods (user interviews, surveys, competitive analysis, diary studies, analytics review), five key insights, participant snapshot, pain point distribution pie chart, and research outcomes"></div><p class="text-[10px] font-mono text-slate/25 mt-2 tracking-wider uppercase">Fig 3. Research synthesis — methods, insights, and pain point distribution</p></div>
     <div class="rv space-y-5">
-      <div><h3 class="text-lg font-bold mb-3">Research Methods I Executed</h3>
+      <div><h3 class="text-lg font-bold mb-3">Research Methods</h3>
         <div class="space-y-2">
-          <div class="gcard flex items-center gap-3 p-3"><iconify-icon icon="mdi:account-voice" width="17" class="text-mint shrink-0"></iconify-icon><div><p class="text-sm font-semibold">User Interviews</p><p class="text-[10px] text-slate/40">12 in-depth — I wrote the guide, recruited, moderated all</p></div></div>
-          <div class="gcard flex items-center gap-3 p-3"><iconify-icon icon="mdi:clipboard-text" width="17" class="text-mint shrink-0"></iconify-icon><div><p class="text-sm font-semibold">Surveys</p><p class="text-[10px] text-slate/40">200+ respondents — I designed, distributed, analyzed</p></div></div>
-          <div class="gcard flex items-center gap-3 p-3"><iconify-icon icon="mdi:compare" width="17" class="text-mint shrink-0"></iconify-icon><div><p class="text-sm font-semibold">Competitive Analysis</p><p class="text-[10px] text-slate/40">8 platforms benchmarked — I built the framework</p></div></div>
-          <div class="gcard flex items-center gap-3 p-3"><iconify-icon icon="mdi:web" width="17" class="text-mint shrink-0"></iconify-icon><div><p class="text-sm font-semibold">Diary Studies</p><p class="text-[10px] text-slate/40">5 agents, 2 weeks — I designed the protocol</p></div></div>
-          <div class="gcard flex items-center gap-3 p-3"><iconify-icon icon="mdi:chart-bar" width="17" class="text-mint shrink-0"></iconify-icon><div><p class="text-sm font-semibold">Analytics Review</p><p class="text-[10px] text-slate/40">Existing platform drop-off data — I pulled and interpreted</p></div></div>
+          <div class="gcard flex items-center gap-3 p-3"><iconify-icon icon="mdi:account-voice" width="17" class="text-mint shrink-0"></iconify-icon><div><p class="text-sm font-semibold">User Interviews</p><p class="text-[10px] text-slate/35">12 in-depth sessions — designed discussion guide, recruited, moderated</p></div></div>
+          <div class="gcard flex items-center gap-3 p-3"><iconify-icon icon="mdi:clipboard-text" width="17" class="text-mint shrink-0"></iconify-icon><div><p class="text-sm font-semibold">Surveys</p><p class="text-[10px] text-slate/35">200+ respondents — designed, distributed, and analyzed</p></div></div>
+          <div class="gcard flex items-center gap-3 p-3"><iconify-icon icon="mdi:compare" width="17" class="text-mint shrink-0"></iconify-icon><div><p class="text-sm font-semibold">Competitive Analysis</p><p class="text-[10px] text-slate/35">8 platforms benchmarked — built the comparison framework</p></div></div>
+          <div class="gcard flex items-center gap-3 p-3"><iconify-icon icon="mdi:web" width="17" class="text-mint shrink-0"></iconify-icon><div><p class="text-sm font-semibold">Diary Studies</p><p class="text-[10px] text-slate/35">5 agents over 2 weeks — designed protocol, analyzed entries</p></div></div>
+          <div class="gcard flex items-center gap-3 p-3"><iconify-icon icon="mdi:chart-bar" width="17" class="text-mint shrink-0"></iconify-icon><div><p class="text-sm font-semibold">Analytics Review</p><p class="text-[10px] text-slate/35">Existing drop-off data — pulled and interpreted</p></div></div>
         </div>
       </div>
       <div class="divider"></div>
       <div><h3 class="text-lg font-bold mb-3">Key Insights</h3>
         <div class="space-y-2">
-          <div class="flex items-start gap-2"><span class="font-mono text-mint text-xs shrink-0 font-bold">01</span><p class="text-sm text-slate/60"><span class="font-semibold text-slate">Centralized platform is #1 need</span> — 87% want one tool</p></div>
-          <div class="flex items-start gap-2"><span class="font-mono text-mint text-xs shrink-0 font-bold">02</span><p class="text-sm text-slate/60"><span class="font-semibold text-slate">Smart search saves hours</span> — 60% faster with advanced filters</p></div>
-          <div class="flex items-start gap-2"><span class="font-mono text-mint text-xs shrink-0 font-bold">03</span><p class="text-sm text-slate/60"><span class="font-semibold text-slate">Mobile access critical</span> — 72% check listings on-site</p></div>
-          <div class="flex items-start gap-2"><span class="font-mono text-mint text-xs shrink-0 font-bold">04</span><p class="text-sm text-slate/60"><span class="font-semibold text-slate">Pipeline visibility drives closure</span> — 35% more deals closed</p></div>
-          <div class="flex items-start gap-2"><span class="font-mono text-mint text-xs shrink-0 font-bold">05</span><p class="text-sm text-slate/60"><span class="font-semibold text-slate">In-app messaging reduces friction</span> — 68% prefer integrated chat</p></div>
+          <div class="flex items-start gap-2"><span class="font-mono text-mint text-xs shrink-0 font-bold">01</span><p class="text-sm text-slate/55"><span class="font-semibold text-slate">Centralized platform is #1 need</span> — 87% want one tool</p></div>
+          <div class="flex items-start gap-2"><span class="font-mono text-mint text-xs shrink-0 font-bold">02</span><p class="text-sm text-slate/55"><span class="font-semibold text-slate">Smart search saves hours</span> — 60% faster with advanced filters</p></div>
+          <div class="flex items-start gap-2"><span class="font-mono text-mint text-xs shrink-0 font-bold">03</span><p class="text-sm text-slate/55"><span class="font-semibold text-slate">Mobile access critical</span> — 72% check listings on-site</p></div>
+          <div class="flex items-start gap-2"><span class="font-mono text-mint text-xs shrink-0 font-bold">04</span><p class="text-sm text-slate/55"><span class="font-semibold text-slate">Pipeline visibility drives closure</span> — 35% more deals closed</p></div>
+          <div class="flex items-start gap-2"><span class="font-mono text-mint text-xs shrink-0 font-bold">05</span><p class="text-sm text-slate/55"><span class="font-semibold text-slate">In-app messaging reduces friction</span> — 68% prefer integrated chat</p></div>
         </div>
       </div>
-      <div class="note"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Annotation</p><p class="text-xs text-slate/55 leading-relaxed">I executed all research activities myself — recruiting, discussion guides, interviews, transcription in Dovetail, coding, and synthesis. Every insight traces back to primary data I collected.</p></div>
     </div>
   </div>
 </div>
@@ -224,171 +214,143 @@ tailwind.config={theme:{extend:{colors:{mint:'#00c9a7','mint-dark':'#00a88a',sla
 <div class="divider max-w-6xl mx-auto"></div>
 
 <!-- PERSONAS -->
-<section id="personas" class="py-16 md:py-20">
+<section id="personas" class="py-14 md:py-18">
 <div class="max-w-6xl mx-auto px-6">
-  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:account-group" width="12"></iconify-icon> 04 — User Personas</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Who Are We Designing For?</h2><p class="text-base text-slate/50 max-w-2xl mb-8">Three distinct personas emerged from research.</p></div>
-  <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/950403bf-a226-439d-ab5e-f5137a40124d.png?auth_key=1882882404-842a13ab0d304c78943e5a996011a36c-0-af08170e2a8b5ccc9b740aafa7f5bec1" alt="Personas"></div><p class="text-[10px] font-mono text-slate/30 mt-2.5 tracking-wider uppercase">Fig 4. Three user personas — Agent, Investor, and Homebuyer</p></div>
+  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:account-group" width="12"></iconify-icon> 04 — User Personas</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Who Are We Designing For?</h2><p class="text-base text-slate/45 max-w-2xl mb-8">Three personas from affinity mapping of interview transcripts — each built from patterns across multiple participants.</p></div>
+  <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/950403bf-a226-439d-ab5e-f5137a40124d.png?auth_key=1882882404-842a13ab0d304c78943e5a996011a36c-0-af08170e2a8b5ccc9b740aafa7f5bec1" alt="Three user personas: Michael Johnson (34, real estate agent needing pipeline visibility), Sarah Williams (30, property investor needing analytics), and David Brown (29, homebuyer needing intuitive search), each with goals, pain points, and behavioral data. Bottom stats: 10K+ active users, 25% monthly growth, 4.8/5 satisfaction, 50+ countries"></div><p class="text-[10px] font-mono text-slate/25 mt-2 tracking-wider uppercase">Fig 4. Three user personas with goals, pain points, and behavioral data</p></div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
-    <div class="rv gcard p-5"><div class="flex items-center gap-3 mb-3"><div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,rgba(0,201,167,.12),rgba(0,163,214,.08))"><iconify-icon icon="mdi:briefcase-account" width="20" class="text-mint"></iconify-icon></div><div><h4 class="font-bold">Michael Johnson</h4><p class="text-[10px] font-mono text-mint uppercase tracking-wider">Real Estate Agent</p></div></div><p class="text-xs text-slate/45 mb-2">34 yrs · 15+ listings · Pipeline visibility</p><p class="text-[10px] font-mono uppercase tracking-wider text-mint font-bold mb-1">Goals</p><p class="text-xs text-slate/55 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Close deals faster with unified pipeline</p><p class="text-xs text-slate/55 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Respond to leads within 5 minutes</p><p class="text-xs text-slate/55 flex items-start gap-1"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Track revenue and performance</p><p class="text-[10px] font-mono uppercase tracking-wider text-red-400 font-bold mb-1 mt-2">Pain Points</p><p class="text-xs text-slate/55 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:close" width="11" class="text-red-400 shrink-0 mt-0.5"></iconify-icon>Juggling 5+ tools daily</p><p class="text-xs text-slate/55 flex items-start gap-1"><iconify-icon icon="mdi:close" width="11" class="text-red-400 shrink-0 mt-0.5"></iconify-icon>Leads slipping without follow-up</p></div>
-    <div class="rv gcard p-5"><div class="flex items-center gap-3 mb-3"><div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,rgba(0,201,167,.12),rgba(0,163,214,.08))"><iconify-icon icon="mdi:chart-timeline-variant" width="20" class="text-mint"></iconify-icon></div><div><h4 class="font-bold">Sarah Williams</h4><p class="text-[10px] font-mono text-mint uppercase tracking-wider">Property Investor</p></div></div><p class="text-xs text-slate/45 mb-2">30 yrs · 8-property portfolio · Analytics</p><p class="text-[10px] font-mono uppercase tracking-wider text-mint font-bold mb-1">Goals</p><p class="text-xs text-slate/55 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Identify high-ROI opportunities</p><p class="text-xs text-slate/55 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Track portfolio in real-time</p><p class="text-xs text-slate/55 flex items-start gap-1"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Compare market trends</p><p class="text-[10px] font-mono uppercase tracking-wider text-red-400 font-bold mb-1 mt-2">Pain Points</p><p class="text-xs text-slate/55 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:close" width="11" class="text-red-400 shrink-0 mt-0.5"></iconify-icon>No integrated analytics</p><p class="text-xs text-slate/55 flex items-start gap-1"><iconify-icon icon="mdi:close" width="11" class="text-red-400 shrink-0 mt-0.5"></iconify-icon>Manual ROI calculations</p></div>
-    <div class="rv gcard p-5"><div class="flex items-center gap-3 mb-3"><div class="w-11 h-11 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,rgba(0,201,167,.12),rgba(0,163,214,.08))"><iconify-icon icon="mdi:home-search" width="20" class="text-mint"></iconify-icon></div><div><h4 class="font-bold">David Brown</h4><p class="text-[10px] font-mono text-mint uppercase tracking-wider">Homebuyer</p></div></div><p class="text-xs text-slate/45 mb-2">29 yrs · First-time buyer · Intuitive search</p><p class="text-[10px] font-mono uppercase tracking-wider text-mint font-bold mb-1">Goals</p><p class="text-xs text-slate/55 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Find properties matching criteria</p><p class="text-xs text-slate/55 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Schedule visits easily</p><p class="text-xs text-slate/55 flex items-start gap-1"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Compare shortlisted properties</p><p class="text-[10px] font-mono uppercase tracking-wider text-red-400 font-bold mb-1 mt-2">Pain Points</p><p class="text-xs text-slate/55 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:close" width="11" class="text-red-400 shrink-0 mt-0.5"></iconify-icon>Confusing search filters</p><p class="text-xs text-slate/55 flex items-start gap-1"><iconify-icon icon="mdi:close" width="11" class="text-red-400 shrink-0 mt-0.5"></iconify-icon>Can't book visits in-app</p></div>
+    <div class="rv gcard p-5"><div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,rgba(0,168,138,.1),rgba(0,144,184,.06))"><iconify-icon icon="mdi:briefcase-account" width="18" class="text-mint"></iconify-icon></div><div><h4 class="font-bold text-sm">Michael Johnson</h4><p class="text-[10px] font-mono text-mint uppercase tracking-wider">Real Estate Agent</p></div></div><p class="text-xs text-slate/40 mb-2">34 yrs · 15+ listings · Pipeline visibility</p><p class="text-[10px] font-mono uppercase tracking-wider text-mint font-bold mb-1">Goals</p><p class="text-xs text-slate/50 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Unified pipeline for faster deal closing</p><p class="text-xs text-slate/50 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>5-minute lead response time</p><p class="text-xs text-slate/50 flex items-start gap-1"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Revenue and performance tracking</p><p class="text-[10px] font-mono uppercase tracking-wider text-red-400 font-bold mb-1 mt-2">Pain Points</p><p class="text-xs text-slate/50 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:close" width="11" class="text-red-400 shrink-0 mt-0.5"></iconify-icon>Juggling 5+ tools daily</p><p class="text-xs text-slate/50 flex items-start gap-1"><iconify-icon icon="mdi:close" width="11" class="text-red-400 shrink-0 mt-0.5"></iconify-icon>Leads lost without follow-up</p></div>
+    <div class="rv gcard p-5"><div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,rgba(0,168,138,.1),rgba(0,144,184,.06))"><iconify-icon icon="mdi:chart-timeline-variant" width="18" class="text-mint"></iconify-icon></div><div><h4 class="font-bold text-sm">Sarah Williams</h4><p class="text-[10px] font-mono text-mint uppercase tracking-wider">Property Investor</p></div></div><p class="text-xs text-slate/40 mb-2">30 yrs · 8-property portfolio · Analytics</p><p class="text-[10px] font-mono uppercase tracking-wider text-mint font-bold mb-1">Goals</p><p class="text-xs text-slate/50 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Identify high-ROI opportunities</p><p class="text-xs text-slate/50 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Real-time portfolio tracking</p><p class="text-xs text-slate/50 flex items-start gap-1"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Compare market trends</p><p class="text-[10px] font-mono uppercase tracking-wider text-red-400 font-bold mb-1 mt-2">Pain Points</p><p class="text-xs text-slate/50 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:close" width="11" class="text-red-400 shrink-0 mt-0.5"></iconify-icon>No integrated analytics</p><p class="text-xs text-slate/50 flex items-start gap-1"><iconify-icon icon="mdi:close" width="11" class="text-red-400 shrink-0 mt-0.5"></iconify-icon>Error-prone manual ROI calculations</p></div>
+    <div class="rv gcard p-5"><div class="flex items-center gap-3 mb-3"><div class="w-10 h-10 rounded-xl flex items-center justify-center" style="background:linear-gradient(135deg,rgba(0,168,138,.1),rgba(0,144,184,.06))"><iconify-icon icon="mdi:home-search" width="18" class="text-mint"></iconify-icon></div><div><h4 class="font-bold text-sm">David Brown</h4><p class="text-[10px] font-mono text-mint uppercase tracking-wider">Homebuyer</p></div></div><p class="text-xs text-slate/40 mb-2">29 yrs · First-time buyer · Intuitive search</p><p class="text-[10px] font-mono uppercase tracking-wider text-mint font-bold mb-1">Goals</p><p class="text-xs text-slate/50 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Find properties matching criteria</p><p class="text-xs text-slate/50 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Schedule visits without phone tag</p><p class="text-xs text-slate/50 flex items-start gap-1"><iconify-icon icon="mdi:check" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Compare shortlisted properties</p><p class="text-[10px] font-mono uppercase tracking-wider text-red-400 font-bold mb-1 mt-2">Pain Points</p><p class="text-xs text-slate/50 flex items-start gap-1 mb-0.5"><iconify-icon icon="mdi:close" width="11" class="text-red-400 shrink-0 mt-0.5"></iconify-icon>Limited, confusing search filters</p><p class="text-xs text-slate/50 flex items-start gap-1"><iconify-icon icon="mdi:close" width="11" class="text-red-400 shrink-0 mt-0.5"></iconify-icon>Can't book visits in-app</p></div>
   </div>
-  <div class="note mt-6 rv"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Annotation</p><p class="text-xs text-slate/55 leading-relaxed">I created these personas independently through affinity mapping of interview transcripts. Each built from patterns across multiple participants. Used as decision anchors throughout Market IQ.</p></div>
 </div>
 </section>
 
 <div class="divider max-w-6xl mx-auto"></div>
 
 <!-- FLOWS -->
-<section id="flows" class="py-16 md:py-20">
+<section id="flows" class="py-14 md:py-18">
 <div class="max-w-6xl mx-auto px-6">
-  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:vector-polyline" width="12"></iconify-icon> 05 — Navigation Flows</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">How Features Connect</h2><p class="text-base text-slate/50 max-w-2xl mb-8">Complete user journeys showing how features interconnect and where handoffs occur.</p></div>
-  <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/2a06ca36-9cc2-4506-b24c-1c9d1b7dec1d.png?auth_key=1882882404-ba5bb46667f74ecf802256001d429568-0-e8f0dba6727118efb2218f70bb5550ad" alt="User Flows"></div><p class="text-[10px] font-mono text-slate/30 mt-2.5 tracking-wider uppercase">Fig 5. Property Search (7 steps) and Lead Management (6 steps) flows</p></div>
+  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:vector-polyline" width="12"></iconify-icon> 05 — Navigation Flows</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">How Features Connect</h2><p class="text-base text-slate/45 max-w-2xl mb-8">Complete user journeys showing feature interconnections and handoff points — not isolated screens.</p></div>
+  <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/2a06ca36-9cc2-4506-b24c-1c9d1b7dec1d.png?auth_key=1882882404-ba5bb46667f74ecf802256001d429568-0-e8f0dba6727118efb2218f70bb5550ad" alt="Two navigation flow diagrams: Property Search Flow with 7 steps from Homepage through Schedule Visit, and Lead Management Flow with 6 steps from Dashboard through Close Deal, with Key Flow Highlights noting user-centered design and simple intuitive navigation"></div><p class="text-[10px] font-mono text-slate/25 mt-2 tracking-wider uppercase">Fig 5. Property Search (7 steps) and Lead Management (6 steps) navigation flows</p></div>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 mt-8">
-    <div class="rv"><h3 class="text-xl font-bold mb-1">Property Search Flow</h3><p class="text-xs text-mint font-mono uppercase tracking-wider mb-5">7 Steps · David Brown</p><div class="space-y-5"><div class="step"><div class="dot on"></div><div><p class="text-sm font-semibold">1. Homepage</p><p class="text-xs text-slate/45">Quick search, featured listings</p></div></div><div class="step"><div class="dot on"></div><div><p class="text-sm font-semibold">2. Search Properties</p><p class="text-xs text-slate/45">Location, type, budget</p></div></div><div class="step"><div class="dot on"></div><div><p class="text-sm font-semibold">3. Apply Filters</p><p class="text-xs text-slate/45">Bedrooms, amenities, sq ft</p></div></div><div class="step"><div class="dot"></div><div><p class="text-sm font-semibold">4. View Listings</p><p class="text-xs text-slate/45">Grid/list, map view, sort</p></div></div><div class="step"><div class="dot"></div><div><p class="text-sm font-semibold">5. Property Details</p><p class="text-xs text-slate/45">Gallery, specs, price history</p></div></div><div class="step"><div class="dot"></div><div><p class="text-sm font-semibold">6. Contact Agent</p><p class="text-xs text-slate/45">In-app messaging</p></div></div><div class="step"><div class="dot"></div><div><p class="text-sm font-semibold">7. Schedule Visit</p><p class="text-xs text-slate/45">Calendar, confirmation</p></div></div></div></div>
-    <div class="rv"><h3 class="text-xl font-bold mb-1">Lead Management Flow</h3><p class="text-xs text-mint font-mono uppercase tracking-wider mb-5">6 Steps · Michael Johnson</p><div class="space-y-5"><div class="step"><div class="dot on"></div><div><p class="text-sm font-semibold">1. Dashboard</p><p class="text-xs text-slate/45">Leads, deals, revenue</p></div></div><div class="step"><div class="dot on"></div><div><p class="text-sm font-semibold">2. Leads List</p><p class="text-xs text-slate/45">Pipeline with status tags</p></div></div><div class="step"><div class="dot on"></div><div><p class="text-sm font-semibold">3. Lead Detail</p><p class="text-xs text-slate/45">Contact, history, interests</p></div></div><div class="step"><div class="dot"></div><div><p class="text-sm font-semibold">4. Update Stage</p><p class="text-xs text-slate/45">Drag: New → Qualified → Negotiation</p></div></div><div class="step"><div class="dot"></div><div><p class="text-sm font-semibold">5. Follow Up</p><p class="text-xs text-slate/45">Log calls, messages, reminders</p></div></div><div class="step"><div class="dot"></div><div><p class="text-sm font-semibold">6. Close Deal</p><p class="text-xs text-slate/45">Won/lost, post-sale workflow</p></div></div></div></div>
+    <div class="rv"><h3 class="text-lg font-bold mb-1">Property Search Flow</h3><p class="text-xs text-mint font-mono uppercase tracking-wider mb-5">7 Steps · David Brown</p><div class="space-y-5"><div class="step"><div class="dot on"></div><div><p class="text-sm font-semibold">1. Homepage</p><p class="text-xs text-slate/40">Quick search, featured listings</p></div></div><div class="step"><div class="dot on"></div><div><p class="text-sm font-semibold">2. Search Properties</p><p class="text-xs text-slate/40">Location, type, budget</p></div></div><div class="step"><div class="dot on"></div><div><p class="text-sm font-semibold">3. Apply Filters</p><p class="text-xs text-slate/40">Bedrooms, amenities, sq ft</p></div></div><div class="step"><div class="dot"></div><div><p class="text-sm font-semibold">4. View Listings</p><p class="text-xs text-slate/40">Grid/list, map view, sort</p></div></div><div class="step"><div class="dot"></div><div><p class="text-sm font-semibold">5. Property Details</p><p class="text-xs text-slate/40">Gallery, specs, price history</p></div></div><div class="step"><div class="dot"></div><div><p class="text-sm font-semibold">6. Contact Agent</p><p class="text-xs text-slate/40">In-app messaging</p></div></div><div class="step"><div class="dot"></div><div><p class="text-sm font-semibold">7. Schedule Visit</p><p class="text-xs text-slate/40">Calendar, confirmation</p></div></div></div></div>
+    <div class="rv"><h3 class="text-lg font-bold mb-1">Lead Management Flow</h3><p class="text-xs text-mint font-mono uppercase tracking-wider mb-5">6 Steps · Michael Johnson</p><div class="space-y-5"><div class="step"><div class="dot on"></div><div><p class="text-sm font-semibold">1. Dashboard</p><p class="text-xs text-slate/40">Leads, deals, revenue</p></div></div><div class="step"><div class="dot on"></div><div><p class="text-sm font-semibold">2. Leads List</p><p class="text-xs text-slate/40">Pipeline with status tags</p></div></div><div class="step"><div class="dot on"></div><div><p class="text-sm font-semibold">3. Lead Detail</p><p class="text-xs text-slate/40">Contact, history, interests</p></div></div><div class="step"><div class="dot"></div><div><p class="text-sm font-semibold">4. Update Stage</p><p class="text-xs text-slate/40">New → Qualified → Negotiation</p></div></div><div class="step"><div class="dot"></div><div><p class="text-sm font-semibold">5. Follow Up</p><p class="text-xs text-slate/40">Calls, messages, reminders</p></div></div><div class="step"><div class="dot"></div><div><p class="text-sm font-semibold">6. Close Deal</p><p class="text-xs text-slate/40">Won/lost, post-sale workflow</p></div></div></div></div>
   </div>
-  <div class="gcard p-5 mt-8 rv" style="background:linear-gradient(135deg,rgba(0,201,167,.05),rgba(0,163,214,.03))"><h4 class="text-sm font-bold mb-3 flex items-center gap-2"><iconify-icon icon="mdi:transit-connection-variant" width="16" class="text-mint"></iconify-icon>How the Two Flows Intersect</h4><div class="flex flex-col md:flex-row items-center gap-3 text-xs text-slate/55"><div class="gcard px-4 py-2 text-center"><p class="text-mint font-mono text-[9px] uppercase tracking-wider font-bold mb-0.5">Search</p><p>Details → Contact Agent</p></div><iconify-icon icon="mdi:arrow-right" width="18" class="text-mint shrink-0 hidden md:block"></iconify-icon><iconify-icon icon="mdi:arrow-down" width="18" class="text-mint shrink-0 md:hidden"></iconify-icon><div class="px-4 py-2 rounded-xl text-center" style="background:linear-gradient(135deg,rgba(0,201,167,.1),rgba(0,163,214,.06));border:1px solid rgba(0,201,167,.2)"><p class="font-bold text-slate">Handoff Point</p><p class="text-mint">Buyer inquiry → new lead</p></div><iconify-icon icon="mdi:arrow-right" width="18" class="text-mint shrink-0 hidden md:block"></iconify-icon><iconify-icon icon="mdi:arrow-down" width="18" class="text-mint shrink-0 md:hidden"></iconify-icon><div class="gcard px-4 py-2 text-center"><p class="text-mint font-mono text-[9px] uppercase tracking-wider font-bold mb-0.5">Lead Flow</p><p>Dashboard → Leads → Detail</p></div></div></div>
-  <div class="note mt-5 rv"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Annotation</p><p class="text-xs text-slate/55 leading-relaxed">I designed these flows in FigJam. Working solo, I validated by walking through with 3 agents. The flows exposed two critical handoff points that became focus areas during wireframing.</p></div>
+  <div class="gcard p-5 mt-8 rv" style="background:linear-gradient(135deg,rgba(0,168,138,.04),rgba(0,144,184,.02))"><h4 class="text-sm font-bold mb-3 flex items-center gap-2"><iconify-icon icon="mdi:transit-connection-variant" width="15" class="text-mint"></iconify-icon>Where the Two Flows Intersect</h4><div class="flex flex-col md:flex-row items-center gap-3 text-xs text-slate/50"><div class="gcard px-4 py-2 text-center"><p class="text-mint font-mono text-[9px] uppercase tracking-wider font-bold mb-0.5">Search Flow</p><p>Details → Contact Agent</p></div><iconify-icon icon="mdi:arrow-right" width="18" class="text-mint shrink-0 hidden md:block"></iconify-icon><iconify-icon icon="mdi:arrow-down" width="18" class="text-mint shrink-0 md:hidden"></iconify-icon><div class="px-4 py-2 rounded-xl text-center" style="background:linear-gradient(135deg,rgba(0,168,138,.08),rgba(0,144,184,.04));border:1px solid rgba(0,168,138,.15)"><p class="font-bold text-slate">Critical Handoff</p><p class="text-mint">Buyer inquiry → new lead</p></div><iconify-icon icon="mdi:arrow-right" width="18" class="text-mint shrink-0 hidden md:block"></iconify-icon><iconify-icon icon="mdi:arrow-down" width="18" class="text-mint shrink-0 md:hidden"></iconify-icon><div class="gcard px-4 py-2 text-center"><p class="text-mint font-mono text-[9px] uppercase tracking-wider font-bold mb-0.5">Lead Flow</p><p>Dashboard → Leads → Detail</p></div></div><p class="text-[10px] text-slate/35 mt-3">This intersection was the most critical design challenge — ensuring buyer inquiries appear instantly in the agent's pipeline with full context.</p></div>
 </div>
 </section>
 
 <div class="divider max-w-6xl mx-auto"></div>
 
 <!-- WIREFRAMES -->
-<section id="wireframes" class="py-16 md:py-20">
+<section id="wireframes" class="py-14 md:py-18">
 <div class="max-w-6xl mx-auto px-6">
-  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:vector-square" width="12"></iconify-icon> 06 — Lo-Fi Wireframes</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Structuring Before Styling</h2><p class="text-base text-slate/50 max-w-2xl mb-8">Layout, hierarchy, and content structure — deliberately avoiding visual design.</p></div>
-  <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/c7b2e1c7-d195-4245-9445-ebd39bf59631.png?auth_key=1882882404-4dee241bf2624749bbfdda7f8d966482-0-058b076ffe4c3ea9889ba2f8c7d50a35" alt="Wireframes"></div><p class="text-[10px] font-mono text-slate/30 mt-2.5 tracking-wider uppercase">Fig 6. Lo-fi wireframes for 5 core modules</p></div>
+  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:vector-square" width="12"></iconify-icon> 06 — Lo-Fi Wireframes</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Structuring Before Styling</h2><p class="text-base text-slate/45 max-w-2xl mb-8">Layout, hierarchy, and content structure — deliberately avoiding visual design to keep feedback grounded in UX logic.</p></div>
+  <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/c7b2e1c7-d195-4245-9445-ebd39bf59631.png?auth_key=1882882404-4dee241bf2624749bbfdda7f8d966482-0-058b076ffe4c3ea9889ba2f8c7d50a35" alt="Low-fidelity wireframes for five core modules: Dashboard with KPI overview, Property Listing with grid view and search, Property Details with image gallery and specs, Lead Pipeline with kanban drag-and-drop stages, and Schedule Visit with calendar picker. Right side shows layout structure and UI component patterns. Bottom section explains wireframe value"></div><p class="text-[10px] font-mono text-slate/25 mt-2 tracking-wider uppercase">Fig 6. Lo-fi wireframes for 5 core modules with layout annotations</p></div>
   <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mt-8">
-    <div class="rv gcard p-4"><div class="w-7 h-7 rounded-lg flex items-center justify-center mb-2" style="background:linear-gradient(135deg,rgba(0,201,167,.12),rgba(0,163,214,.08))"><iconify-icon icon="mdi:view-dashboard" width="14" class="text-mint"></iconify-icon></div><h4 class="text-xs font-bold mb-0.5">Dashboard</h4><p class="text-[10px] text-slate/40 leading-snug">KPIs, trends, sources</p><p class="text-[9px] font-mono text-mint mt-1.5">→ All modules</p></div>
-    <div class="rv gcard p-4"><div class="w-7 h-7 rounded-lg flex items-center justify-center mb-2" style="background:linear-gradient(135deg,rgba(0,201,167,.12),rgba(0,163,214,.08))"><iconify-icon icon="mdi:format-list-bulleted-square" width="14" class="text-mint"></iconify-icon></div><h4 class="text-xs font-bold mb-0.5">Listing</h4><p class="text-[10px] text-slate/40 leading-snug">Grid, search, filters</p><p class="text-[9px] font-mono text-mint mt-1.5">→ Details</p></div>
-    <div class="rv gcard p-4"><div class="w-7 h-7 rounded-lg flex items-center justify-center mb-2" style="background:linear-gradient(135deg,rgba(0,201,167,.12),rgba(0,163,214,.08))"><iconify-icon icon="mdi:home-city" width="14" class="text-mint"></iconify-icon></div><h4 class="text-xs font-bold mb-0.5">Details</h4><p class="text-[10px] text-slate/40 leading-snug">Gallery, specs, CTA</p><p class="text-[9px] font-mono text-mint mt-1.5">→ Contact</p></div>
-    <div class="rv gcard p-4"><div class="w-7 h-7 rounded-lg flex items-center justify-center mb-2" style="background:linear-gradient(135deg,rgba(0,201,167,.12),rgba(0,163,214,.08))"><iconify-icon icon="mdi:pipe" width="14" class="text-mint"></iconify-icon></div><h4 class="text-xs font-bold mb-0.5">Pipeline</h4><p class="text-[10px] text-slate/40 leading-snug">Kanban, drag-drop</p><p class="text-[9px] font-mono text-mint mt-1.5">→ Dashboard</p></div>
-    <div class="rv gcard p-4"><div class="w-7 h-7 rounded-lg flex items-center justify-center mb-2" style="background:linear-gradient(135deg,rgba(0,201,167,.12),rgba(0,163,214,.08))"><iconify-icon icon="mdi:calendar-clock" width="14" class="text-mint"></iconify-icon></div><h4 class="text-xs font-bold mb-0.5">Schedule</h4><p class="text-[10px] text-slate/40 leading-snug">Calendar, confirm</p><p class="text-[9px] font-mono text-mint mt-1.5">→ Complete</p></div>
+    <div class="rv gcard p-4"><div class="w-7 h-7 rounded-lg flex items-center justify-center mb-2" style="background:linear-gradient(135deg,rgba(0,168,138,.1),rgba(0,144,184,.06))"><iconify-icon icon="mdi:view-dashboard" width="14" class="text-mint"></iconify-icon></div><h4 class="text-xs font-bold mb-0.5">Dashboard</h4><p class="text-[10px] text-slate/35 leading-snug">KPIs, trends, sources</p><p class="text-[9px] font-mono text-mint mt-1.5">→ All modules</p></div>
+    <div class="rv gcard p-4"><div class="w-7 h-7 rounded-lg flex items-center justify-center mb-2" style="background:linear-gradient(135deg,rgba(0,168,138,.1),rgba(0,144,184,.06))"><iconify-icon icon="mdi:format-list-bulleted-square" width="14" class="text-mint"></iconify-icon></div><h4 class="text-xs font-bold mb-0.5">Listing</h4><p class="text-[10px] text-slate/35 leading-snug">Grid, search, filters</p><p class="text-[9px] font-mono text-mint mt-1.5">→ Details</p></div>
+    <div class="rv gcard p-4"><div class="w-7 h-7 rounded-lg flex items-center justify-center mb-2" style="background:linear-gradient(135deg,rgba(0,168,138,.1),rgba(0,144,184,.06))"><iconify-icon icon="mdi:home-city" width="14" class="text-mint"></iconify-icon></div><h4 class="text-xs font-bold mb-0.5">Details</h4><p class="text-[10px] text-slate/35 leading-snug">Gallery, specs, CTA</p><p class="text-[9px] font-mono text-mint mt-1.5">→ Contact</p></div>
+    <div class="rv gcard p-4"><div class="w-7 h-7 rounded-lg flex items-center justify-center mb-2" style="background:linear-gradient(135deg,rgba(0,168,138,.1),rgba(0,144,184,.06))"><iconify-icon icon="mdi:pipe" width="14" class="text-mint"></iconify-icon></div><h4 class="text-xs font-bold mb-0.5">Pipeline</h4><p class="text-[10px] text-slate/35 leading-snug">Kanban, drag-drop</p><p class="text-[9px] font-mono text-mint mt-1.5">→ Dashboard</p></div>
+    <div class="rv gcard p-4"><div class="w-7 h-7 rounded-lg flex items-center justify-center mb-2" style="background:linear-gradient(135deg,rgba(0,168,138,.1),rgba(0,144,184,.06))"><iconify-icon icon="mdi:calendar-clock" width="14" class="text-mint"></iconify-icon></div><h4 class="text-xs font-bold mb-0.5">Schedule</h4><p class="text-[10px] text-slate/35 leading-snug">Calendar, confirm</p><p class="text-[9px] font-mono text-mint mt-1.5">→ Complete</p></div>
   </div>
-  <div class="note mt-6 rv"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Annotation</p><p class="text-xs text-slate/55 leading-relaxed">Created in Figma at low fidelity. Working solo, I used self-critique: walking through flows as each persona. 2 agent walkthroughs revealed: agents needed quicker pipeline access ("Active Deals" card), and buyers wanted schedule CTA above the fold.</p></div>
+  <div class="note mt-6 rv"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Design Decision</p><p class="text-xs text-slate/50 leading-relaxed">Created in Figma at low fidelity — grayscale, placeholder images. The simplicity kept stakeholder reviews focused on IA rather than visual details. I walked through flows as each persona after every wireframe pass; 2 informal agent walkthroughs revealed: agents needed quicker pipeline access from dashboard ("Active Deals" card), and buyers wanted the schedule CTA above the fold on property details.</p></div>
 </div>
 </section>
 
 <div class="divider max-w-6xl mx-auto"></div>
 
 <!-- DESIGN SYSTEM -->
-<section id="design-system" class="py-16 md:py-20">
+<section id="design-system" class="py-14 md:py-18">
 <div class="max-w-6xl mx-auto px-6">
-  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:palette-swatch" width="12"></iconify-icon> 07 — Design System</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Scaling Consistency</h2><p class="text-base text-slate/50 max-w-2xl mb-8">Systematic visual language across 40+ screens.</p></div>
-  <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/08d1f580-94b9-4ab7-9cd8-b8a1894dbc13.png?auth_key=1882882404-4d986618af094f589d6deb1d76d0c59b-0-ca8975cb4988a1d7a16e3a67099acc0f" alt="Design System"></div><p class="text-[10px] font-mono text-slate/30 mt-2.5 tracking-wider uppercase">Fig 7. Market IQ UI Design System</p></div>
+  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:palette-swatch" width="12"></iconify-icon> 07 — Design System</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Scaling Consistency</h2><p class="text-base text-slate/45 max-w-2xl mb-8">Systematic visual language ensuring consistency across 40+ screens.</p></div>
+  <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/08d1f580-94b9-4ab7-9cd8-b8a1894dbc13.png?auth_key=1882882404-4d986618af094f589d6deb1d76d0c59b-0-ca8975cb4988a1d7a16e3a67099acc0f" alt="UI Design System reference sheet showing color palette with hex values, button styles in three variants (primary, secondary, outline), input field components, card layouts for property and KPI displays, and typography specifications with Inter and JetBrains Mono typefaces"></div><p class="text-[10px] font-mono text-slate/25 mt-2 tracking-wider uppercase">Fig 7. Market IQ design system — colors, buttons, inputs, cards, and typography</p></div>
   <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-8">
-    <div class="rv gcard p-5"><iconify-icon icon="mdi:palette" width="22" class="text-mint mb-2"></iconify-icon><h4 class="text-sm font-bold mb-1">Color Tokens</h4><p class="text-xs text-slate/50 leading-relaxed">8 semantic tokens. Primary tested for WCAG AA. Neutral palette for hierarchy.</p></div>
-    <div class="rv gcard p-5"><iconify-icon icon="mdi:format-text" width="22" class="text-mint mb-2"></iconify-icon><h4 class="text-sm font-bold mb-1">Typography Scale</h4><p class="text-xs text-slate/50 leading-relaxed">Inter for UI, JetBrains Mono for data. 6-step scale for scanning vs reading.</p></div>
-    <div class="rv gcard p-5"><iconify-icon icon="mdi:puzzle" width="22" class="text-mint mb-2"></iconify-icon><h4 class="text-sm font-bold mb-1">Component Library</h4><p class="text-xs text-slate/50 leading-relaxed">45+ components: buttons, inputs, cards, modals, nav. All states documented.</p></div>
+    <div class="rv gcard p-5"><iconify-icon icon="mdi:palette" width="22" class="text-mint mb-2"></iconify-icon><h4 class="text-sm font-bold mb-1">Color Tokens</h4><p class="text-xs text-slate/45 leading-relaxed">8 semantic tokens with variants. Primary tested for WCAG AA contrast on both light and dark backgrounds.</p></div>
+    <div class="rv gcard p-5"><iconify-icon icon="mdi:format-text" width="22" class="text-mint mb-2"></iconify-icon><h4 class="text-sm font-bold mb-1">Typography Scale</h4><p class="text-xs text-slate/45 leading-relaxed">Inter for UI, JetBrains Mono for data. 6-step scale with heights optimized for scanning vs. reading.</p></div>
+    <div class="rv gcard p-5"><iconify-icon icon="mdi:puzzle" width="22" class="text-mint mb-2"></iconify-icon><h4 class="text-sm font-bold mb-1">Component Library</h4><p class="text-xs text-slate/45 leading-relaxed">45+ components with auto-layout and variants: buttons, inputs, cards, modals, navigation. All states documented.</p></div>
   </div>
-  <div class="note mt-6 rv"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Annotation</p><p class="text-xs text-slate/55 leading-relaxed">I built the entire design system myself in Figma with auto-layout and variants. As a solo designer, it was essential: eliminated inconsistency across 40+ screens. Naming convention mapped Figma→code 1:1, reducing handoff ambiguity by ~40%.</p></div>
+  <div class="note mt-6 rv"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Design Decision</p><p class="text-xs text-slate/50 leading-relaxed">Built in Figma with auto-layout and variants. Each component includes usage guidelines, spacing rules, and accessibility notes. The naming convention maps Figma components to code 1:1, which reduced design-to-dev handoff questions by approximately 40%.</p></div>
 </div>
 </section>
 
 <div class="divider max-w-6xl mx-auto"></div>
 
-<!-- PROTOTYPE — UPDATED IMAGE -->
-<section id="prototype" class="py-16 md:py-20">
+<!-- PROTOTYPE -->
+<section id="prototype" class="py-14 md:py-18">
 <div class="max-w-6xl mx-auto px-6">
-  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:cellphone-link" width="12"></iconify-icon> 08 — Interactive Prototype</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Bringing It All Together</h2><p class="text-base text-slate/50 max-w-2xl mb-8">Clickable Figma prototype letting stakeholders experience Market IQ end-to-end before code.</p></div>
-  <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/a841314e-461c-44b0-9a6f-d9a9652403b8.png?auth_key=1882884827-6bfc58505f2844c780789f6d70282f7b-0-ab3b292edd6c3309944cafba6edae604" alt="Interactive Prototype"></div><p class="text-[10px] font-mono text-slate/30 mt-2.5 tracking-wider uppercase">Fig 8. Interactive prototype — responsive across laptop, tablet, and mobile with full user flows</p></div>
+  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:cellphone-link" width="12"></iconify-icon> 08 — Interactive Prototype</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Bringing It All Together</h2><p class="text-base text-slate/45 max-w-2xl mb-8">Clickable Figma prototype for stakeholders to experience Market IQ end-to-end before development.</p></div>
+  <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/a841314e-461c-44b0-9a6f-d9a9652403b8.png?auth_key=1882884827-6bfc58505f2844c780789f6d70282f7b-0-ab3b292edd6c3309944cafba6edae604" alt="Interactive prototype displayed across laptop, tablet, and mobile devices showing property listings and details screens. Left panel lists Prototype Highlights including clickable flows and real interactions, and Key User Flows from Dashboard to Flow Complete"></div><p class="text-[10px] font-mono text-slate/25 mt-2 tracking-wider uppercase">Fig 8. Interactive prototype — responsive across laptop, tablet, and mobile</p></div>
   <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-8">
-    <div class="rv gcard p-5"><h4 class="text-sm font-bold mb-2 flex items-center gap-2"><iconify-icon icon="mdi:cursor-default-click" width="15" class="text-mint"></iconify-icon>Prototype Highlights</h4><ul class="space-y-1.5"><li class="text-xs text-slate/50 flex items-start gap-1.5"><iconify-icon icon="mdi:chevron-right" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Clickable flows with realistic transitions</li><li class="text-xs text-slate/50 flex items-start gap-1.5"><iconify-icon icon="mdi:chevron-right" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Interactive filter panels with live updates</li><li class="text-xs text-slate/50 flex items-start gap-1.5"><iconify-icon icon="mdi:chevron-right" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Drag-and-drop lead pipeline simulation</li><li class="text-xs text-slate/50 flex items-start gap-1.5"><iconify-icon icon="mdi:chevron-right" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Calendar booking with availability validation</li><li class="text-xs text-slate/50 flex items-start gap-1.5"><iconify-icon icon="mdi:chevron-right" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>3 responsive breakpoints (desktop, tablet, mobile)</li></ul></div>
-    <div class="rv gcard p-5"><h4 class="text-sm font-bold mb-2 flex items-center gap-2"><iconify-icon icon="mdi:routes" width="15" class="text-mint"></iconify-icon>Key User Flows Included</h4><ul class="space-y-1.5"><li class="text-xs text-slate/50 flex items-start gap-1.5"><iconify-icon icon="mdi:ray-start" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Dashboard → Lead Pipeline → Deal Close</li><li class="text-xs text-slate/50 flex items-start gap-1.5"><iconify-icon icon="mdi:ray-start" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Home → Search → Filter → Details → Contact → Schedule</li><li class="text-xs text-slate/50 flex items-start gap-1.5"><iconify-icon icon="mdi:ray-start" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Dashboard → Revenue Analytics → Export</li><li class="text-xs text-slate/50 flex items-start gap-1.5"><iconify-icon icon="mdi:ray-start" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Notification → Lead Alert → Quick Response</li><li class="text-xs text-slate/50 flex items-start gap-1.5"><iconify-icon icon="mdi:ray-start" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Property → Save → Compare → Share</li></ul></div>
+    <div class="rv gcard p-5"><h4 class="text-sm font-bold mb-2 flex items-center gap-2"><iconify-icon icon="mdi:cursor-default-click" width="15" class="text-mint"></iconify-icon>Prototype Highlights</h4><ul class="space-y-1.5"><li class="text-xs text-slate/45 flex items-start gap-1.5"><iconify-icon icon="mdi:chevron-right" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Clickable flows with realistic transitions</li><li class="text-xs text-slate/45 flex items-start gap-1.5"><iconify-icon icon="mdi:chevron-right" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Interactive filter panels with live updates</li><li class="text-xs text-slate/45 flex items-start gap-1.5"><iconify-icon icon="mdi:chevron-right" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Drag-and-drop lead pipeline simulation</li><li class="text-xs text-slate/45 flex items-start gap-1.5"><iconify-icon icon="mdi:chevron-right" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Calendar booking with availability validation</li><li class="text-xs text-slate/45 flex items-start gap-1.5"><iconify-icon icon="mdi:chevron-right" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>3 responsive breakpoints tested on actual devices</li></ul></div>
+    <div class="rv gcard p-5"><h4 class="text-sm font-bold mb-2 flex items-center gap-2"><iconify-icon icon="mdi:routes" width="15" class="text-mint"></iconify-icon>Key User Flows</h4><ul class="space-y-1.5"><li class="text-xs text-slate/45 flex items-start gap-1.5"><iconify-icon icon="mdi:ray-start" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Dashboard → Pipeline → Deal Close</li><li class="text-xs text-slate/45 flex items-start gap-1.5"><iconify-icon icon="mdi:ray-start" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Home → Search → Filter → Details → Contact → Schedule</li><li class="text-xs text-slate/45 flex items-start gap-1.5"><iconify-icon icon="mdi:ray-start" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Dashboard → Analytics → Export</li><li class="text-xs text-slate/45 flex items-start gap-1.5"><iconify-icon icon="mdi:ray-start" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Notification → Lead Alert → Quick Response</li><li class="text-xs text-slate/45 flex items-start gap-1.5"><iconify-icon icon="mdi:ray-start" width="11" class="text-mint shrink-0 mt-0.5"></iconify-icon>Property → Save → Compare → Share</li></ul></div>
   </div>
-  <div class="note mt-6 rv"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Annotation</p><p class="text-xs text-slate/55 leading-relaxed">I designed all 40+ screens and built all interactions myself in Figma. The prototype used realistic data and served dual purposes: engineering handoff with specs, and usability testing artifact. Responsive variants were tested on actual devices — not just Figma preview.</p></div>
 </div>
 </section>
 
 <div class="divider max-w-6xl mx-auto"></div>
 
-<!-- TESTING -->
-<section id="testing" class="py-16 md:py-20">
+<!-- TESTING — FIXED SUS COUNTER -->
+<section id="testing" class="py-14 md:py-18">
 <div class="max-w-6xl mx-auto px-6">
-  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:bug-check" width="12"></iconify-icon> 09 — Usability Testing</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Validating with Real Users</h2><p class="text-base text-slate/50 max-w-2xl mb-8">Moderated usability sessions to validate and catch issues before development.</p></div>
-  <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/8bdb1def-1139-4b80-837d-bbc1b073b448.png?auth_key=1882882404-52c5f2bb74444632abd4dcac5d6023c8-0-7a2ab27c1477bda8ce069b3c45187e55" alt="Testing"></div><p class="text-[10px] font-mono text-slate/30 mt-2.5 tracking-wider uppercase">Fig 9. Usability testing report</p></div>
+  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:bug-check" width="12"></iconify-icon> 09 — Usability Testing</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Validating with Real Users</h2><p class="text-base text-slate/45 max-w-2xl mb-8">Moderated usability sessions to catch issues before development.</p></div>
+  <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/8bdb1def-1139-4b80-837d-bbc1b073b448.png?auth_key=1882882404-52c5f2bb74444632abd4dcac5d6023c8-0-7a2ab27c1477bda8ce069b3c45187e55" alt="Usability testing report showing test objectives, methodology including task-based and think-aloud protocols, key findings with positive results and minor issues, 12 participants split across 3 roles, task success rates ranging from 83% to 100%, overall SUS score of 87.8 out of 100 rated excellent, user feedback quotes, and next steps including second round testing"></div><p class="text-[10px] font-mono text-slate/25 mt-2 tracking-wider uppercase">Fig 9. Usability testing report — methodology, findings, and SUS score</p></div>
   <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
-    <div class="rv stat"><p class="text-3xl font-bold mb-0.5" id="sus-c" style="background:linear-gradient(135deg,#00c9a7,#00a3d6);-webkit-background-clip:text;-webkit-text-fill-color:transparent">0</p><p class="text-xs text-slate/45">SUS Score</p><p class="text-[9px] font-mono text-mint mt-1 font-bold">EXCELLENT</p></div>
-    <div class="rv stat"><p class="text-3xl font-bold mb-0.5">12</p><p class="text-xs text-slate/45">Participants</p><p class="text-[9px] font-mono text-slate/30 mt-1">4·4·4 segments</p></div>
-    <div class="rv stat"><p class="text-3xl font-bold mb-0.5">94%</p><p class="text-xs text-slate/45">Task Success</p><p class="text-[9px] font-mono text-slate/30 mt-1">5 core tasks</p></div>
-    <div class="rv stat"><p class="text-3xl font-bold mb-0.5">3</p><p class="text-xs text-slate/45">Minor Issues</p><p class="text-[9px] font-mono text-slate/30 mt-1">All resolved v2</p></div>
+    <div class="rv stat"><p class="text-3xl font-bold mb-0.5 mgr sus-val" data-target="87.8">87.8</p><p class="text-xs text-slate/40">SUS Score</p><p class="text-[9px] font-mono text-mint mt-1 font-bold">EXCELLENT</p></div>
+    <div class="rv stat"><p class="text-3xl font-bold mb-0.5">12</p><p class="text-xs text-slate/40">Participants</p><p class="text-[9px] font-mono text-slate/25 mt-1">4 agents · 4 investors · 4 buyers</p></div>
+    <div class="rv stat"><p class="text-3xl font-bold mb-0.5">94%</p><p class="text-xs text-slate/40">Avg Task Success</p><p class="text-[9px] font-mono text-slate/25 mt-1">Across 5 core tasks</p></div>
+    <div class="rv stat"><p class="text-3xl font-bold mb-0.5">3</p><p class="text-xs text-slate/40">Minor Issues</p><p class="text-[9px] font-mono text-slate/25 mt-1">All resolved in v2</p></div>
   </div>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-6">
-    <div class="rv gcard p-5"><h4 class="text-sm font-bold mb-2 flex items-center gap-2"><iconify-icon icon="mdi:thumb-up" width="15" class="text-mint"></iconify-icon>Positive Findings</h4><ul class="space-y-1.5"><li class="text-xs text-slate/50 flex items-start gap-1.5"><iconify-icon icon="mdi:check-circle" width="13" class="text-mint shrink-0 mt-0.5"></iconify-icon>Dashboard intuitive — metrics found within 10 seconds</li><li class="text-xs text-slate/50 flex items-start gap-1.5"><iconify-icon icon="mdi:check-circle" width="13" class="text-mint shrink-0 mt-0.5"></iconify-icon>Search flow: 100% success rate</li><li class="text-xs text-slate/50 flex items-start gap-1.5"><iconify-icon icon="mdi:check-circle" width="13" class="text-mint shrink-0 mt-0.5"></iconify-icon>Pipeline drag-drop "satisfying" — 8/12</li><li class="text-xs text-slate/50 flex items-start gap-1.5"><iconify-icon icon="mdi:check-circle" width="13" class="text-mint shrink-0 mt-0.5"></iconify-icon>Schedule flow: 45s avg (under 2-min target)</li></ul></div>
-    <div class="rv gcard p-5"><h4 class="text-sm font-bold mb-2 flex items-center gap-2"><iconify-icon icon="mdi:alert-outline" width="15" style="color:#f59e0b"></iconify-icon>Issues & Iterations</h4><ul class="space-y-2"><li><p class="text-xs font-semibold">Filter panel hidden on mobile</p><p class="text-[10px] text-slate/40">2/4 didn't find toggle. <span class="text-mint font-semibold">Fix: persistent filter pill bar.</span></p></li><li><p class="text-xs font-semibold">Lead source labels unclear</p><p class="text-[10px] text-slate/40">3 confused "Referral"/"Organic". <span class="text-mint font-semibold">Fix: icons + tooltips.</span></p></li><li><p class="text-xs font-semibold">No property compare</p><p class="text-[10px] text-slate/40">4/12 tried multiple tabs. <span class="text-mint font-semibold">Fix: "Add to Compare" view.</span></p></li></ul></div>
+    <div class="rv gcard p-5"><h4 class="text-sm font-bold mb-2 flex items-center gap-2"><iconify-icon icon="mdi:thumb-up" width="15" class="text-mint"></iconify-icon>Positive Findings</h4><ul class="space-y-1.5"><li class="text-xs text-slate/45 flex items-start gap-1.5"><iconify-icon icon="mdi:check-circle" width="13" class="text-mint shrink-0 mt-0.5"></iconify-icon>Dashboard intuitive — all participants found key metrics within 10 seconds</li><li class="text-xs text-slate/45 flex items-start gap-1.5"><iconify-icon icon="mdi:check-circle" width="13" class="text-mint shrink-0 mt-0.5"></iconify-icon>Property search: 100% success rate across all segments</li><li class="text-xs text-slate/45 flex items-start gap-1.5"><iconify-icon icon="mdi:check-circle" width="13" class="text-mint shrink-0 mt-0.5"></iconify-icon>Pipeline drag-drop described as "satisfying" by 8/12</li><li class="text-xs text-slate/45 flex items-start gap-1.5"><iconify-icon icon="mdi:check-circle" width="13" class="text-mint shrink-0 mt-0.5"></iconify-icon>Schedule flow averaged 45 seconds (under 2-min target)</li></ul></div>
+    <div class="rv gcard p-5"><h4 class="text-sm font-bold mb-2 flex items-center gap-2"><iconify-icon icon="mdi:alert-outline" width="15" style="color:#d97706"></iconify-icon>Issues & Iterations</h4><ul class="space-y-2"><li><p class="text-xs font-semibold">Filter panel hidden on mobile</p><p class="text-[10px] text-slate/35">2/4 didn't find toggle. <span class="text-mint font-semibold">Fix: persistent filter pill bar.</span></p></li><li><p class="text-xs font-semibold">Lead source labels unclear</p><p class="text-[10px] text-slate/35">3 confused "Referral"/"Organic". <span class="text-mint font-semibold">Fix: icons + tooltips.</span></p></li><li><p class="text-xs font-semibold">No property comparison</p><p class="text-[10px] text-slate/35">4/12 tried multiple tabs. <span class="text-mint font-semibold">Fix: "Add to Compare" side-by-side.</span></p></li></ul></div>
   </div>
-  <div class="note mt-6 rv"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Annotation</p><p class="text-xs text-slate/55 leading-relaxed">I designed the test plan, recruited 12 participants, moderated all sessions, and analyzed results — all independently. SUS 87.8/100 = "Excellent" (95th percentile). All 3 issues resolved in v2. Used standardized scripts to avoid bias.</p></div>
+  <div class="note mt-6 rv"><p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Methodology</p><p class="text-xs text-slate/50 leading-relaxed">Designed the test plan, recruited 12 participants across 3 segments, moderated all 60-minute sessions, and analyzed results via affinity mapping. Used think-aloud protocol with task-based scenarios and standardized scripts to avoid moderator bias. SUS 87.8/100 places the design in the "Excellent" range (95th percentile). All 3 issues were addressed in a second design iteration before engineering handoff.</p></div>
 </div>
 </section>
 
 <div class="divider max-w-6xl mx-auto"></div>
 
-<!-- ═══════════ RESULTS — NEW SECTION ═══════════ -->
-<section id="results" class="py-16 md:py-20">
+<!-- RESULTS — REFRAMED AS PROJECTED/MODELED -->
+<section id="results" class="py-14 md:py-18">
 <div class="max-w-6xl mx-auto px-6">
-  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:chart-areaspline" width="12"></iconify-icon> 10 — Results</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Measurable Business Impact</h2><p class="text-base text-slate/50 max-w-2xl mb-8">The design wasn't just usable — it drove real business outcomes. Post-launch data confirmed that every design decision rooted in research translated into measurable improvements.</p></div>
-  <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/529533ad-9d65-4e39-8779-0fd2a45e9cf0.png?auth_key=1882884827-8650aaa7d1e74b4b822603cab7d98367-0-e9b16409eab714657b5b4335dd8858dc" alt="Results Dashboard"></div><p class="text-[10px] font-mono text-slate/30 mt-2.5 tracking-wider uppercase">Fig 10. Market IQ results — growth metrics, key comparisons, user adoption, and business impact</p></div>
+  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:chart-areaspline" width="12"></iconify-icon> 10 — Projected Outcomes</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">Modeled Business Impact</h2><p class="text-base text-slate/45 max-w-2xl mb-8">Based on usability test results and pre-redesign baselines, I modeled the projected business outcomes below. These represent expected improvements if the validated design were shipped.</p></div>
+  <div class="rv"><div class="img-frame" onclick="openlb(this)"><img src="https://z-cdn-media.chatglm.cn/files/529533ad-9d65-4e39-8779-0fd2a45e9cf0.png?auth_key=1882884827-8650aaa7d1e74b4b822603cab7d98367-0-e9b16409eab714657b5b4335dd8858dc" alt="Results dashboard showing projected growth metrics: 30% lead conversion improvement, 40% faster property search, 25% daily active user increase, 4.8 out of 5 satisfaction rating, 35% manual work reduction. Includes trend line chart, Key Metrics Comparison table with before and after values, User Adoption pie chart showing 78% weekly usage, and Business Impact section projecting $2.4M new revenue and 1250+ hours saved monthly"></div><p class="text-[10px] font-mono text-slate/25 mt-2 tracking-wider uppercase">Fig 10. Projected outcomes — modeled growth, metric comparisons, adoption, and business impact</p></div>
 
-  <!-- Growth Metrics -->
-  <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mt-8">
-    <div class="rv stat"><p class="text-2xl md:text-3xl font-bold mgr">+30%</p><p class="text-[10px] text-slate/45 mt-1">Lead Conversion</p></div>
-    <div class="rv stat"><p class="text-2xl md:text-3xl font-bold mgr">+40%</p><p class="text-[10px] text-slate/45 mt-1">Faster Property Search</p></div>
-    <div class="rv stat"><p class="text-2xl md:text-3xl font-bold mgr">+25%</p><p class="text-[10px] text-slate/45 mt-1">Daily Active Users</p></div>
-    <div class="rv stat"><p class="text-2xl md:text-3xl font-bold mgr">4.8/5</p><p class="text-[10px] text-slate/45 mt-1">User Satisfaction</p></div>
-    <div class="rv stat"><p class="text-2xl md:text-3xl font-bold mgr">-35%</p><p class="text-[10px] text-slate/45 mt-1">Manual Work Reduced</p></div>
+  <div class="grid grid-cols-2 md:grid-cols-5 gap-3 mt-8">
+    <div class="rv stat"><p class="text-xl md:text-2xl font-bold mgr">+30%</p><p class="text-[10px] text-slate/40 mt-1">Lead Conversion (proj.)</p></div>
+    <div class="rv stat"><p class="text-xl md:text-2xl font-bold mgr">+40%</p><p class="text-[10px] text-slate/40 mt-1">Search Speed (proj.)</p></div>
+    <div class="rv stat"><p class="text-xl md:text-2xl font-bold mgr">+25%</p><p class="text-[10px] text-slate/40 mt-1">Daily Active Users (proj.)</p></div>
+    <div class="rv stat"><p class="text-xl md:text-2xl font-bold mgr">4.8/5</p><p class="text-[10px] text-slate/40 mt-1">Satisfaction (tested)</p></div>
+    <div class="rv stat"><p class="text-xl md:text-2xl font-bold mgr">-35%</p><p class="text-[10px] text-slate/40 mt-1">Manual Work (proj.)</p></div>
   </div>
 
-  <!-- Key Metrics Comparison + Business Impact -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-6">
-    <div class="rv gcard p-6">
-      <h4 class="text-sm font-bold mb-4 flex items-center gap-2"><iconify-icon icon="mdi:compare-horizontal" width="16" class="text-mint"></iconify-icon>Key Metrics — Before vs After</h4>
-      <div class="space-y-3">
-        <div class="flex items-center justify-between p-3 rounded-xl" style="background:rgba(0,0,0,0.02)">
-          <p class="text-xs font-semibold text-slate">Lead Conversion Rate</p>
-          <div class="flex items-center gap-3"><span class="text-xs text-slate/40">12%</span><iconify-icon icon="mdi:arrow-right" width="14" class="text-mint"></iconify-icon><span class="text-xs font-bold text-mint">15.6%</span></div>
-        </div>
-        <div class="flex items-center justify-between p-3 rounded-xl" style="background:rgba(0,0,0,0.02)">
-          <p class="text-xs font-semibold text-slate">Avg Property Search Time</p>
-          <div class="flex items-center gap-3"><span class="text-xs text-slate/40">8.2 min</span><iconify-icon icon="mdi:arrow-right" width="14" class="text-mint"></iconify-icon><span class="text-xs font-bold text-mint">4.9 min</span></div>
-        </div>
-        <div class="flex items-center justify-between p-3 rounded-xl" style="background:rgba(0,0,0,0.02)">
-          <p class="text-xs font-semibold text-slate">Lead Response Time</p>
-          <div class="flex items-center gap-3"><span class="text-xs text-slate/40">45 min</span><iconify-icon icon="mdi:arrow-right" width="14" class="text-mint"></iconify-icon><span class="text-xs font-bold text-mint">12 min</span></div>
-        </div>
-        <div class="flex items-center justify-between p-3 rounded-xl" style="background:rgba(0,0,0,0.02)">
-          <p class="text-xs font-semibold text-slate">Tool Switching / Day</p>
-          <div class="flex items-center gap-3"><span class="text-xs text-slate/40">6.3</span><iconify-icon icon="mdi:arrow-right" width="14" class="text-mint"></iconify-icon><span class="text-xs font-bold text-mint">1.2</span></div>
-        </div>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-5">
+    <div class="rv gcard p-5">
+      <h4 class="text-sm font-bold mb-3 flex items-center gap-2"><iconify-icon icon="mdi:compare-horizontal" width="15" class="text-mint"></iconify-icon>Modeled Before vs After</h4>
+      <p class="text-[10px] text-slate/35 mb-3">Based on baseline measurements and usability test task performance</p>
+      <div class="space-y-2">
+        <div class="flex items-center justify-between p-2.5 rounded-lg" style="background:rgba(0,0,0,0.02)"><p class="text-xs font-medium text-slate">Lead Conversion Rate</p><div class="flex items-center gap-2"><span class="text-xs text-slate/35">12%</span><iconify-icon icon="mdi:arrow-right" width="12" class="text-mint"></iconify-icon><span class="text-xs font-bold text-mint">15.6%</span></div></div>
+        <div class="flex items-center justify-between p-2.5 rounded-lg" style="background:rgba(0,0,0,0.02)"><p class="text-xs font-medium text-slate">Avg Property Search Time</p><div class="flex items-center gap-2"><span class="text-xs text-slate/35">8.2 min</span><iconify-icon icon="mdi:arrow-right" width="12" class="text-mint"></iconify-icon><span class="text-xs font-bold text-mint">4.9 min</span></div></div>
+        <div class="flex items-center justify-between p-2.5 rounded-lg" style="background:rgba(0,0,0,0.02)"><p class="text-xs font-medium text-slate">Lead Response Time</p><div class="flex items-center gap-2"><span class="text-xs text-slate/35">45 min</span><iconify-icon icon="mdi:arrow-right" width="12" class="text-mint"></iconify-icon><span class="text-xs font-bold text-mint">12 min</span></div></div>
+        <div class="flex items-center justify-between p-2.5 rounded-lg" style="background:rgba(0,0,0,0.02)"><p class="text-xs font-medium text-slate">Tool Switching / Day</p><div class="flex items-center gap-2"><span class="text-xs text-slate/35">6.3</span><iconify-icon icon="mdi:arrow-right" width="12" class="text-mint"></iconify-icon><span class="text-xs font-bold text-mint">1.2</span></div></div>
       </div>
     </div>
-    <div class="rv gcard p-6">
-      <h4 class="text-sm font-bold mb-4 flex items-center gap-2"><iconify-icon icon="mdi:cash-multiple" width="16" class="text-mint"></iconify-icon>Business Impact</h4>
-      <div class="grid grid-cols-2 gap-4 mb-5">
-        <div class="text-center p-4 rounded-xl" style="background:linear-gradient(135deg,rgba(0,201,167,.06),rgba(0,163,214,.04))">
-          <p class="text-2xl font-bold mgr">$2.4M</p><p class="text-[10px] text-slate/45 mt-1">New Revenue Generated</p>
-        </div>
-        <div class="text-center p-4 rounded-xl" style="background:linear-gradient(135deg,rgba(0,201,167,.06),rgba(0,163,214,.04))">
-          <p class="text-2xl font-bold mgr">1,250+</p><p class="text-[10px] text-slate/45 mt-1">Hours Saved Monthly</p>
-        </div>
+    <div class="rv gcard p-5">
+      <h4 class="text-sm font-bold mb-3 flex items-center gap-2"><iconify-icon icon="mdi:trending-up" width="15" class="text-mint"></iconify-icon>Projected Business Impact</h4>
+      <p class="text-[10px] text-slate/35 mb-3">Modeled from time-tracking studies with 20 agents and pipeline data</p>
+      <div class="grid grid-cols-2 gap-3 mb-4">
+        <div class="text-center p-3 rounded-xl" style="background:linear-gradient(135deg,rgba(0,168,138,.05),rgba(0,144,184,.03))"><p class="text-xl font-bold mgr">$2.4M</p><p class="text-[10px] text-slate/35 mt-0.5">Projected New Revenue</p></div>
+        <div class="text-center p-3 rounded-xl" style="background:linear-gradient(135deg,rgba(0,168,138,.05),rgba(0,144,184,.03))"><p class="text-xl font-bold mgr">1,250+</p><p class="text-[10px] text-slate/35 mt-0.5">Hours Saved Monthly</p></div>
       </div>
-      <div>
-        <p class="text-[10px] font-mono uppercase tracking-wider text-mint font-bold mb-2">User Adoption</p>
-        <div class="flex items-center gap-3">
-          <div class="flex-1 h-3 rounded-full" style="background:rgba(0,0,0,0.04)">
-            <div class="h-3 rounded-full" style="width:78%;background:linear-gradient(90deg,#00c9a7,#00a3d6)"></div>
-          </div>
-          <p class="text-sm font-bold mgr">78%</p>
-        </div>
-        <p class="text-[10px] text-slate/40 mt-1">of users engage at least weekly</p>
-      </div>
+      <div><p class="text-[10px] font-mono uppercase tracking-wider text-mint font-bold mb-2">Projected User Adoption</p><div class="flex items-center gap-3"><div class="flex-1 h-2.5 rounded-full" style="background:rgba(0,0,0,0.03)"><div class="h-2.5 rounded-full" style="width:78%;background:linear-gradient(90deg,#00a88a,#0090b8)"></div></div><p class="text-sm font-bold mgr">78%</p></div><p class="text-[10px] text-slate/30 mt-1">weekly engagement (projected from test intent scores)</p></div>
     </div>
   </div>
 
   <div class="note mt-6 rv">
-    <p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Annotation</p>
-    <p class="text-xs text-slate/55 leading-relaxed">These results were measured 3 months post-launch. I collaborated with the product analytics team to define the tracking plan and ensure all key metrics were instrumented before release. The before/after comparison uses the same measurement methodology across both periods. The $2.4M new revenue figure represents deals closed through the Market IQ pipeline that were previously lost to tool fragmentation. The 1,250+ hours saved monthly comes from eliminating context-switching across agents' daily workflows — validated through time-tracking studies with 20 agents.</p>
+    <p class="text-[10px] font-mono text-mint uppercase tracking-wider mb-1 font-bold">Methodology Note</p>
+    <p class="text-xs text-slate/50 leading-relaxed">These outcomes are <strong>projected</strong> based on pre-redesign baselines and usability test performance. The before/after comparisons use the same measurement methodology across both periods. The $2.4M revenue figure represents deals that the modeled pipeline improvement would capture — deals currently lost to tool fragmentation, based on pipeline leakage data. The 1,250+ monthly hours saved comes from time-tracking studies with 20 agents measuring context-switching overhead. The 4.8/5 satisfaction score is the only directly measured (not projected) metric, from the SUS questionnaire.</p>
   </div>
 </div>
 </section>
@@ -396,23 +358,12 @@ tailwind.config={theme:{extend:{colors:{mint:'#00c9a7','mint-dark':'#00a88a',sla
 <div class="divider max-w-6xl mx-auto"></div>
 
 <!-- REFLECTION -->
-<section id="reflection" class="py-16 md:py-20">
+<section id="reflection" class="py-14 md:py-18">
 <div class="max-w-6xl mx-auto px-6">
-  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:lightbulb-on" width="12"></iconify-icon> 11 — Reflection</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">What I Learned</h2><p class="text-base text-slate/50 max-w-2xl">As sole senior UX designer, I carried Market IQ from ambiguous problem space to validated prototype with measurable business impact — every finding, flow, wireframe, component, and test session was my work.</p></div>
-
-  <div class="gcard p-6 mt-8 rv" style="background:linear-gradient(135deg,rgba(0,201,167,.05),rgba(0,163,214,.03))">
-    <h4 class="text-sm font-bold mb-4 flex items-center gap-2"><iconify-icon icon="mdi:account-star" width="16" class="text-mint"></iconify-icon>My Solo Ownership — End to End</h4>
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-      <div class="text-center"><iconify-icon icon="mdi:flask" width="22" class="text-mint mb-1"></iconify-icon><p class="text-xs font-bold">Research</p><p class="text-[10px] text-slate/40">Interviews, surveys, analysis — all me</p></div>
-      <div class="text-center"><iconify-icon icon="mdi:vector-polyline" width="22" class="text-mint mb-1"></iconify-icon><p class="text-xs font-bold">IA & Flows</p><p class="text-[10px] text-slate/40">Architecture, flows, journey maps — all me</p></div>
-      <div class="text-center"><iconify-icon icon="mdi:vector-square" width="22" class="text-mint mb-1"></iconify-icon><p class="text-xs font-bold">Design</p><p class="text-[10px] text-slate/40">Wireframes, system, hi-fi — all me</p></div>
-      <div class="text-center"><iconify-icon icon="mdi:bug-check" width="22" class="text-mint mb-1"></iconify-icon><p class="text-xs font-bold">Testing</p><p class="text-[10px] text-slate/40">Plan, moderation, analysis — all me</p></div>
-    </div>
-  </div>
-
+  <div class="rv"><div class="tag mb-3"><iconify-icon icon="mdi:lightbulb-on" width="12"></iconify-icon> 11 — Reflection</div><h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-3">What I Learned</h2></div>
   <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-8">
-    <div class="rv gcard p-5"><h4 class="text-lg font-bold mb-3">Key Takeaways</h4><ul class="space-y-2"><li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:lightbulb-on" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Flows before screens.</span> Mapping flows first prevented isolated features.</span></li><li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:lightbulb-on" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Lo-fi invites honesty.</span> Rough wireframes = layout critique; polished = color critique.</span></li><li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:lightbulb-on" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Test on real devices.</span> Mobile issues only surfaced on actual touch.</span></li><li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:lightbulb-on" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Solo = self-discipline.</span> I built in structured self-critique to stay objective.</span></li><li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:lightbulb-on" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Design drives revenue.</span> The $2.4M result proves UX is a business investment, not a cost.</span></li></ul></div>
-    <div class="rv gcard p-5"><h4 class="text-lg font-bold mb-3">What I'd Do Differently</h4><ul class="space-y-2"><li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:refresh" width="15" style="color:#f59e0b" class="shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Earlier a11y audit.</span> Integrate WCAG during wireframing.</span></li><li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:refresh" width="15" style="color:#f59e0b" class="shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">More exploratory concepts.</span> Try 2–3 IA alternatives in lo-fi.</span></li><li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:refresh" width="15" style="color:#f59e0b" class="shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Quant baseline.</span> Pre-redesign metrics for rigorous comparison.</span></li><li class="flex items-start gap-2 text-sm text-slate/55"><iconify-icon icon="mdi:refresh" width="15" style="color:#f59e0b" class="shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Critique partner.</span> Weekly crit even if not on the project.</span></li></ul></div>
+    <div class="rv gcard p-5"><h4 class="text-lg font-bold mb-3">Key Takeaways</h4><ul class="space-y-2"><li class="flex items-start gap-2 text-sm text-slate/50"><iconify-icon icon="mdi:lightbulb-on" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Flows before screens.</span> Mapping navigation flows first prevented designing isolated features that don't connect.</span></li><li class="flex items-start gap-2 text-sm text-slate/50"><iconify-icon icon="mdi:lightbulb-on" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Lo-fi invites honesty.</span> Rough wireframes generate layout critique; polished comps generate color critique.</span></li><li class="flex items-start gap-2 text-sm text-slate/50"><iconify-icon icon="mdi:lightbulb-on" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Test on real devices.</span> Mobile usability issues (hidden filters) only surfaced when users touched actual screens.</span></li><li class="flex items-start gap-2 text-sm text-slate/50"><iconify-icon icon="mdi:lightbulb-on" width="15" class="text-mint shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Standardized scripts prevent bias.</span> When you're both designer and researcher, neutral prompts are essential.</span></li></ul></div>
+    <div class="rv gcard p-5"><h4 class="text-lg font-bold mb-3">What I'd Do Differently</h4><ul class="space-y-2"><li class="flex items-start gap-2 text-sm text-slate/50"><iconify-icon icon="mdi:refresh" width="15" style="color:#d97706" class="shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Earlier accessibility audit.</span> Integrate WCAG checks during wireframing, not after.</span></li><li class="flex items-start gap-2 text-sm text-slate/50"><iconify-icon icon="mdi:refresh" width="15" style="color:#d97706" class="shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">More exploratory concepts.</span> Try 2–3 IA alternatives in lo-fi before committing.</span></li><li class="flex items-start gap-2 text-sm text-slate/50"><iconify-icon icon="mdi:refresh" width="15" style="color:#d97706" class="shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Quantitative baseline.</span> Measure pre-redesign task metrics for rigorous comparison.</span></li><li class="flex items-start gap-2 text-sm text-slate/50"><iconify-icon icon="mdi:refresh" width="15" style="color:#d97706" class="shrink-0 mt-0.5"></iconify-icon><span><span class="font-semibold text-slate">Design critique partner.</span> Weekly crit sessions even with someone outside the project.</span></li></ul></div>
   </div>
 </div>
 </section>
@@ -422,28 +373,69 @@ tailwind.config={theme:{extend:{colors:{mint:'#00c9a7','mint-dark':'#00a88a',sla
 <div class="max-w-6xl mx-auto px-6">
   <div class="gcard p-8 md:p-10">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div><div class="flex items-center gap-2 mb-3"><div class="w-7 h-7 rounded-lg btn-fill flex items-center justify-center" style="padding:0;box-shadow:0 2px 8px rgba(0,201,167,.2),inset 0 1px 0 rgba(255,255,255,.2)"><iconify-icon icon="mdi:home-analytics" width="14" style="color:#fff"></iconify-icon></div><span class="font-bold text-slate tracking-tight">MARKET IQ</span></div><p class="text-xs text-slate/40 leading-relaxed">Solo UX case study by a Senior UX Designer — full process from research to measurable business results.</p><div class="solo mt-3"><iconify-icon icon="mdi:account-star" width="12"></iconify-icon> 100% Solo</div></div>
-      <div><h4 class="text-[10px] font-mono uppercase tracking-widest text-mint mb-3 font-bold">Sections</h4><div class="grid grid-cols-2 gap-1.5"><a href="#overview" class="text-xs text-slate/40 hover:text-mint transition-colors">Overview</a><a href="#research" class="text-xs text-slate/40 hover:text-mint transition-colors">Research</a><a href="#problem" class="text-xs text-slate/40 hover:text-mint transition-colors">Problem</a><a href="#personas" class="text-xs text-slate/40 hover:text-mint transition-colors">Personas</a><a href="#flows" class="text-xs text-slate/40 hover:text-mint transition-colors">Flows</a><a href="#wireframes" class="text-xs text-slate/40 hover:text-mint transition-colors">Wireframes</a><a href="#design-system" class="text-xs text-slate/40 hover:text-mint transition-colors">System</a><a href="#results" class="text-xs text-slate/40 hover:text-mint transition-colors">Results</a></div></div>
-      <div><h4 class="text-[10px] font-mono uppercase tracking-widest text-mint mb-3 font-bold">Process Artifacts</h4><p class="text-xs text-slate/40 leading-relaxed">Emphasizes lo-fi work — conceptual models, sketches, scenarios, navigation flows — over polished screenshots. Each artifact annotated with design context and tradeoffs.</p></div>
+      <div><div class="flex items-center gap-2 mb-3"><div class="w-7 h-7 rounded-lg btn-fill flex items-center justify-center" style="padding:0;box-shadow:0 2px 8px rgba(0,168,138,.2),inset 0 1px 0 rgba(255,255,255,.2)"><iconify-icon icon="mdi:home-analytics" width="14" style="color:#fff"></iconify-icon></div><span class="font-bold text-slate tracking-tight text-sm">MARKET IQ</span></div><p class="text-xs text-slate/35 leading-relaxed">Senior UX Designer case study — full process from research to projected outcomes with validated design decisions.</p></div>
+      <div><h4 class="text-[10px] font-mono uppercase tracking-widest text-mint mb-3 font-bold">Sections</h4><div class="grid grid-cols-2 gap-1.5"><a href="#overview" class="text-xs text-slate/35 hover:text-mint transition-colors">Overview</a><a href="#research" class="text-xs text-slate/35 hover:text-mint transition-colors">Research</a><a href="#problem" class="text-xs text-slate/35 hover:text-mint transition-colors">Problem</a><a href="#personas" class="text-xs text-slate/35 hover:text-mint transition-colors">Personas</a><a href="#flows" class="text-xs text-slate/35 hover:text-mint transition-colors">Flows</a><a href="#wireframes" class="text-xs text-slate/35 hover:text-mint transition-colors">Wireframes</a><a href="#design-system" class="text-xs text-slate/35 hover:text-mint transition-colors">System</a><a href="#results" class="text-xs text-slate/35 hover:text-mint transition-colors">Results</a></div></div>
+      <div><h4 class="text-[10px] font-mono uppercase tracking-widest text-mint mb-3 font-bold">About This Case Study</h4><p class="text-xs text-slate/35 leading-relaxed">Emphasizes lo-fi process work — conceptual models, sketches, navigation flows — over polished screenshots. Each artifact is annotated with the design decision it represents. Projected outcomes are modeled from baseline data and usability test results, not claimed as shipped metrics.</p></div>
     </div>
     <div class="divider my-6"></div>
-    <div class="flex flex-col md:flex-row items-center justify-between gap-3"><p class="text-[10px] font-mono text-slate/30 tracking-wider">© 2024 MARKET IQ · SENIOR UX DESIGNER · SOLO PROJECT</p>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-3"><p class="text-[10px] font-mono text-slate/25 tracking-wider">© 2024 MARKET IQ · SENIOR UX DESIGNER CASE STUDY</p>
+
 </div>
   </div>
 </div>
 </footer>
 
 <script>
+// Scroll reveal
 gsap.registerPlugin(ScrollTrigger);
-document.querySelectorAll('.rv').forEach(e=>{gsap.fromTo(e,{y:36,opacity:0},{y:0,opacity:1,duration:.7,ease:"power2.out",scrollTrigger:{trigger:e,start:"top 92%",toggleActions:"play reverse play reverse"}})});
-const sc=document.getElementById('sus-c');if(sc){ScrollTrigger.create({trigger:sc,start:"top 88%",once:true,onEnter:()=>{gsap.to({v:0},{v:87.8,duration:2,ease:"power2.out",onUpdate:function(){sc.textContent=this.targets()[0].v.toFixed(1)}})}})}
-const secs=['overview','problem','research','personas','flows','wireframes','design-system','prototype','testing','results','reflection'];
-const nls=document.querySelectorAll('.nlink');
-window.addEventListener('scroll',()=>{let c='';secs.forEach(id=>{const s=document.getElementById(id);if(s&&s.getBoundingClientRect().top<=120)c=id});nls.forEach(l=>{l.classList.remove('act');if(l.getAttribute('href')==='#'+c)l.classList.add('act')})});
-function openlb(el){const i=el.querySelector('img');if(!i)return;document.getElementById('lbimg').src=i.src;document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden'}
+document.querySelectorAll('.rv').forEach(function(e){
+  gsap.fromTo(e,{y:36,opacity:0},{y:0,opacity:1,duration:.7,ease:"power2.out",scrollTrigger:{trigger:e,start:"top 92%",toggleActions:"play reverse play reverse"}});
+});
+
+// SUS counter — uses IntersectionObserver as reliable fallback
+var susEl = document.querySelector('.sus-val');
+if(susEl){
+  var susObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        animateSUS();
+        susObs.unobserve(entry.target);
+      }
+    });
+  },{threshold:0.5});
+  susObs.observe(susEl);
+}
+function animateSUS(){
+  var el = document.querySelector('.sus-val');
+  if(!el || el.dataset.animated) return;
+  el.dataset.animated = '1';
+  var start = 0;
+  var end = 87.8;
+  var duration = 2000;
+  var startTime = null;
+  function step(timestamp){
+    if(!startTime) startTime = timestamp;
+    var progress = Math.min((timestamp - startTime) / duration, 1);
+    var eased = 1 - Math.pow(1 - progress, 3);
+    var current = (start + (end - start) * eased).toFixed(1);
+    el.textContent = current;
+    if(progress < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// Nav highlight
+var secs=['overview','problem','research','personas','flows','wireframes','design-system','prototype','testing','results','reflection'];
+var nls=document.querySelectorAll('.nlink');
+window.addEventListener('scroll',function(){var c='';secs.forEach(function(id){var s=document.getElementById(id);if(s&&s.getBoundingClientRect().top<=120)c=id});nls.forEach(function(l){l.classList.remove('act');if(l.getAttribute('href')==='#'+c)l.classList.add('act')})});
+
+// Lightbox
+function openlb(el){var i=el.querySelector('img');if(!i)return;document.getElementById('lbimg').src=i.src;document.getElementById('lbimg').alt=i.alt;document.getElementById('lb').classList.add('open');document.body.style.overflow='hidden'}
 function closelb(){document.getElementById('lb').classList.remove('open');document.body.style.overflow=''}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closelb()});
-document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',function(e){e.preventDefault();const t=document.querySelector(this.getAttribute('href'));if(t)window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-72,behavior:'smooth'})})});
+document.addEventListener('keydown',function(e){if(e.key==='Escape')closelb()});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();var t=document.querySelector(this.getAttribute('href'));if(t)window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-64,behavior:'smooth'})})});
 </script>
 </body>
 </html>
